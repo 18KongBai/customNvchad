@@ -4,11 +4,10 @@ return {
 
   -- ["goolord/alpha-nvim"] = { disable = false },
   ["glepnir/dashboard-nvim"] = {
-    event = 'VimEnter',
+    event = "VimEnter",
     config = function()
       require "custom.plugins.dashboard"
     end,
-    requires = {'nvim-tree/nvim-web-devicons'}
   },
   -- 透明插件
   ["xiyaowong/nvim-transparent"] = {},
@@ -73,7 +72,6 @@ return {
     config = function()
       require "custom.plugins.lspsaga"
     end,
-    requires = { {"nvim-tree/nvim-web-devicons"} }
   },
   -- Override plugin definition options
   ["neovim/nvim-lspconfig"] = {
@@ -92,7 +90,7 @@ return {
     override_options = overrides.mason,
   },
 
-  ["kyazdani42/nvim-tree.lua"] = {
+  ["nvim-tree/nvim-tree.lua"] = {
     override_options = overrides.nvimtree,
   },
 
