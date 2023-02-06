@@ -9,6 +9,7 @@ local myAutoGroup = vim.api.nvim_create_augroup("myAutoGroup", {
 vim.opt.scrolloff = 14
 vim.opt.sidescrolloff = 14
 vim.opt.cursorline = false
+require('custom.neovide')
 -- vim.g.transparent_enabled = true
 -- Auto resize panes when resizing nvim window
 -- autocmd("VimResized", {

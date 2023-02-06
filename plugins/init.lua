@@ -37,12 +37,14 @@ return {
       require("core.utils").load_mappings "blamer"
     end,
   },
-  ["nvim-lua/popup.nvim"] = {},
-  -- 使用 Telescope 从 Neovim 预览图像、pdf、epub、视频和字体
-  -- ["nvim-telescope/telescope-media-files.nvim"] = {},
-  ["HendrikPetertje/telescope-media-files.nvim"] = {
-    branch = "fix-replace-ueber-with-viu",
-  },
+
+  --[[ ["sindrets/diffview.nvim"] = {
+    config = function ()
+      require('custom.plugins.diffview')
+    end,
+    requires = 'nvim-lua/plenary.nvim'
+  }, ]]
+  -- ["nvim-lua/popup.nvim"] = {},
   -- git插件管理
   ["kdheepak/lazygit.nvim"] = {
     config = function()

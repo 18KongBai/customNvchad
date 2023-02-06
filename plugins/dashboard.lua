@@ -7,60 +7,12 @@ if not present then
   return
 end
 
---[[ db.setup {
-  config = {
-    header = {
-      "⣿⠟⣽⣿⣿⣿⣿⣿⢣⠟⠋⡜⠄⢸⣿⣿⡟⣬⢁⠠⠁⣤⠄⢰⠄⠇⢻⢸",
-      "⢏⣾⣿⣿⣿⠿⣟⢁⡴⡀⡜⣠⣶⢸⣿⣿⢃⡇⠂⢁⣶⣦⣅⠈⠇⠄⢸⢸",
-      "⣹⣿⣿⣿⡗⣾⡟⡜⣵⠃⣴⣿⣿⢸⣿⣿⢸⠘⢰⣿⣿⣿⣿⡀⢱⠄⠨⢸",
-      "⣿⣿⣿⣿⡇⣿⢁⣾⣿⣾⣿⣿⣿⣿⣸⣿⡎⠐⠒⠚⠛⠛⠿⢧⠄⠄⢠⣼",
-      "⣿⣿⣿⣿⠃⠿⢸⡿⠭⠭⢽⣿⣿⣿⢂⣿⠃⣤⠄⠄⠄⠄⠄⠄⠄⠄⣿⡾",
-      "⣼⠏⣿⡏⠄⠄⢠⣤⣶⣶⣾⣿⣿⣟⣾⣾⣼⣿⠒⠄⠄⠄⡠⣴⡄⢠⣿⣵",
-      "⣳⠄⣿⠄⠄⢣⠸⣹⣿⡟⣻⣿⣿⣿⣿⣿⣿⡿⡻⡖⠦⢤⣔⣯⡅⣼⡿⣹",
-      "⡿⣼⢸⠄⠄⣷⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣕⡜⡌⡝⡸⠙⣼⠟⢱⠏",
-      "⡇⣿⣧⡰⡄⣿⣿⣿⣿⡿⠿⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣋⣪⣥⢠⠏⠄",
-      "⣧⢻⣿⣷⣧⢻⣿⣿⣿⡇⠄⢀⣀⣀⡙⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠂⠄⠄",
-      "⢹⣼⣿⣿⣿⣧⡻⣿⣿⣇⣴⣿⣿⣿⣷⢸⣿⣿⣿⣿⣿⣿⣿⣿⣰⠄⠄⠄",
-      "⣼⡟⡟⣿⢸⣿⣿⣝⢿⣿⣾⣿⣿⣿⢟⣾⣿⣿⣿⣿⣿⣿⣿⣿⠟⠄⡀⡀",
-      "⣿⢰⣿⢹⢸⣿⣿⣿⣷⣝⢿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠉⠄⠄⣸⢰⡇",
-      "⣿⣾⣹⣏⢸⣿⣿⣿⣿⣿⣷⣍⡻⣛⣛⣛⡉⠁⠄⠄⠄⠄⠄⠄⢀⢇⡏⠄",
-    },
-    center = {
-      {
-        icon = "  ",
-        desc = "Projects                            ",
-        action = "Telescope projects",
-      },
-      {
-        icon = "  ",
-        desc = "Recently files                      ",
-        action = "Telescope oldfiles",
-      },
-      {
-        icon = "  ",
-        desc = "Edit keybindings                    ",
-        action = "edit ~/.config/nvim/lua/custom/mappings.lua",
-      },
-      {
-        icon = "  ",
-        desc = "Edit Projects                       ",
-        action = "edit ~/.local/share/nvim/project_nvim/project_history",
-      },
-    },
-    footer = {
-      "",
-      "",
-      "I wish every day is merry, not just Christmas",
-    },
-  },
-} ]]
-
 db.setup {
   theme = "hyper",
   config = {
-    --[[ week_header = {
-       enable = true,
-      }, ]]
+    week_header = {
+      enable = true,
+    },
     header = {
       "",
       "",
@@ -106,7 +58,7 @@ db.setup {
     footer = {
       "",
       "",
-      "I wish every day is merry, not just Christmas",
+      "人生如画，执笔人是自己",
     },
   },
 }
