@@ -205,7 +205,7 @@ M.blamer = {
   n = {
     ["<leader>gb"] = {
       "<cmd>BlamerToggle<CR>",
-      "是否展示git提交记录"
+      "是否展示git提交记录",
     },
   },
 }
@@ -244,8 +244,17 @@ M.lspconfig = {
     },
     ["gp"] = {
       "<cmd>Lspsaga peek_definition<cr>",
-      "lspsaga peek_definition"
-    }
+      "lspsaga peek_definition",
+    },
+  },
+}
+
+M.markdown = {
+  n = {
+    ["<F5>"] = {
+      "<cmd>MarkdownPreview<CR>",
+      "打开markdown预览",
+    },
   },
 }
 

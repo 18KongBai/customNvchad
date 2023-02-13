@@ -24,3 +24,10 @@ autocmd("InsertEnter", {
   group = myAutoGroup,
   callback = require("custom.plugins.im-select").insertEnter,
 })
+autocmd("BufWritePre", {
+  group = myAutoGroup,
+  -- pattern = { "*.lua", "*.py", "*.sh" },
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})

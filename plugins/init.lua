@@ -11,14 +11,13 @@ return {
   },
   -- 透明插件
   ["xiyaowong/nvim-transparent"] = {},
-  -- chatGPT
-  --[[ ["jackMort/ChatGPT.nvim"] = {
-    requires = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  }, ]]
+
+  -- markdown-preview 插件
+  ["iamcco/markdown-preview.nvim"] = {
+    setup = function()
+      require("core.utils").load_mappings "markdown"
+    end,
+  },
   -- kanagawa颜色主题插件
   ["rebelot/kanagawa.nvim"] = {
     config = function()
@@ -38,13 +37,6 @@ return {
     end,
   },
 
-  --[[ ["sindrets/diffview.nvim"] = {
-    config = function ()
-      require('custom.plugins.diffview')
-    end,
-    requires = 'nvim-lua/plenary.nvim'
-  }, ]]
-  -- ["nvim-lua/popup.nvim"] = {},
   -- git插件管理
   ["kdheepak/lazygit.nvim"] = {
     config = function()
