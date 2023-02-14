@@ -6,7 +6,7 @@ return {
   ["glepnir/dashboard-nvim"] = {
     event = "VimEnter",
     config = function()
-      require "custom.plugins.dashboard"
+      require "custom.plugins.configs.dashboard"
     end,
   },
   -- 透明插件
@@ -19,17 +19,15 @@ return {
     end,
   },
   -- kanagawa颜色主题插件
-  ["rebelot/kanagawa.nvim"] = {
-    config = function()
-      require "custom.plugins.transparent"
-    end,
-  },
+  ["rebelot/kanagawa.nvim"] = {},
+
   ["samodostal/image.nvim"] = {
     config = function()
-      require "custom.plugins.image"
+      require "custom.plugins.configs.image"
     end,
   },
   ["m00qek/baleia.nvim"] = {},
+
   -- git显示历史提交记录
   ["APZelos/blamer.nvim"] = {
     setup = function()
@@ -40,7 +38,7 @@ return {
   -- git插件管理
   ["kdheepak/lazygit.nvim"] = {
     config = function()
-      require "custom.plugins.lazygit"
+      require "custom.plugins.configs.lazygit"
     end,
     setup = function()
       require("core.utils").load_mappings "lazygit"
@@ -49,13 +47,13 @@ return {
   -- 项目管理插件
   ["ahmedkhalf/project.nvim"] = {
     config = function()
-      require "custom.plugins.project"
+      require "custom.plugins.configs.project"
     end,
   },
   -- 光标跳转插件
   ["ggandor/leap.nvim"] = {
     config = function()
-      require "custom.plugins.leap"
+      require "custom.plugins.configs.leap"
     end,
   },
   -- jsx 注释
@@ -64,14 +62,14 @@ return {
   ["glepnir/lspsaga.nvim"] = {
     branch = "main",
     config = function()
-      require "custom.plugins.lspsaga"
+      require "custom.plugins.configs.lspsaga"
     end,
   },
   -- Override plugin definition options
   ["neovim/nvim-lspconfig"] = {
     config = function()
       require "plugins.configs.lspconfig"
-      require "custom.plugins.lspconfig"
+      require "custom.plugins.configs.lspconfig"
     end,
   },
 
@@ -104,7 +102,7 @@ return {
   ["jose-elias-alvarez/null-ls.nvim"] = {
     after = "nvim-lspconfig",
     config = function()
-      require "custom.plugins.null-ls"
+      require "custom.plugins.configs.null-ls"
     end,
   },
 
