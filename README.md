@@ -14,6 +14,19 @@
 └── mappings.lua                         // 客制化插件对应键位
 ```
 
+## 使用
+
+``` javascript
+1. cd ~/.config
+2. git clone https://github.com/NvChad/NvChad.git
+3. mv Nvchad nvim
+4. cd ~/.config/nvim/lua
+5. git clone https://github.com/18KongBai/customNvchad.git
+6. mv customNvchad custom
+7. nvim
+8. :PackerSync
+```
+
 ## mason安装配套lsp `:Mason`
 
 - css-lsp
@@ -32,6 +45,8 @@
 - vtsls
 - vue-language-server
 
+> 当mason列表没有安装以上相对应的插件，即可使用:MasonInstallAll 手动安装以上lsp
+
 ## nvim-treesitter 高亮语法安装列表 `:TSInstallInfo`
 
 - css
@@ -45,3 +60,15 @@
 - typescript
 - vim
 - vue
+
+## 插件配置使用说明
+
+### markdown preview 插件使用
+
+``` javascript
+cd ~/.local/share/nvim/site/pack/packer/start/
+git clone https://github.com/iamcco/markdown-preview.nvim.git
+cd markdown-preview.nvim
+yarn install
+yarn build
+```
