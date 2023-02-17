@@ -2,7 +2,19 @@ local M = {}
 
 M.treesitter = {
   -- :TSInstallInfo 命令查看支持的语言
-  ensure_installed = { "json", "html", "css", "vim", "lua", "javascript", "typescript", "tsx" },
+  ensure_installed = {
+    "json",
+    "html",
+    "css",
+    "vim",
+    "lua",
+    "javascript",
+    "typescript",
+    "tsx",
+    "markdown",
+    "mardown_inline",
+    "vue",
+  },
   context_commentstring = {
     enable = true,
     enable_autocmd = false,
@@ -11,22 +23,21 @@ M.treesitter = {
 
 M.mason = {
   ensure_installed = {
-    -- lua stuff
     "lua-language-server",
-
-    -- web dev stuff
     "css-lsp",
     "html-lsp",
     "typescript-language-server",
-    "tsserver",
-    "deno",
     "emmet-ls",
     "json-lsp",
     "eslint_d",
     "fixjson",
-    "prettier",
+    "prettierd",
     "stylelint-lsp",
     "vtsls",
+    "markdownlint",
+    "vetur-vls",
+    "vim-language-server",
+    "vue-language-server"
   },
 }
 

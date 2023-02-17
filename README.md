@@ -14,3 +14,34 @@
 └── mappings.lua                         // 客制化插件对应键位
 ```
 
+## mason安装配套lsp `:Mason`
+
+- css-lsp
+- emmet-ls
+- eslint_d
+- fixjson
+- html-lsp
+- json-lsp
+- lua-language-server
+- markdownlint
+- prettierd
+- stylelint-lsp
+- typescript-language-server
+- vetur-vls
+- vim-language-server
+- vtsls
+- vue-language-server
+
+## nvim-treesitter 高亮语法安装列表 `:TSInstallInfo`
+
+- css
+- html
+- javascript
+- json
+- lua
+- markdown
+- markdown_inline
+- tsx
+- typescript
+- vim
+- vue
