@@ -12,7 +12,7 @@ M.treesitter = {
     "typescript",
     "tsx",
     "markdown",
-    "mardown_inline",
+    "markdown_inline",
     "vue",
   },
   context_commentstring = {
