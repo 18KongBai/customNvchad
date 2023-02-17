@@ -1,4 +1,5 @@
 local M = {}
+local isOk, com = pcall(require, 'ts_context_commentstring.integrations.comment_nvim');
 
 M.treesitter = {
   -- :TSInstallInfo 命令查看支持的语言
@@ -43,7 +44,7 @@ M.mason = {
 
 M.comment = {
   -- 使用ts_context_commentstring 进行注释jsx文件
-  pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+  pre_hook = isOk and com.create_pre_hook(),
 }
 
 -- git support in nvimtree
@@ -51,11 +52,9 @@ M.nvimtree = {
   git = {
     enable = true,
   },
-
   view = {
     width = 30,
   },
-
   renderer = {
     highlight_git = true,
     icons = {
