@@ -1,15 +1,11 @@
 local autocmd = vim.api.nvim_create_autocmd
 
-local myAutoGroup = vim.api.nvim_create_augroup("myAutoGroup", {
-  clear = true,
-})
-
 -- 新增基础配置项
 -- jkhl 移动时光标周围保留8行
 vim.opt.scrolloff = 14
 vim.opt.sidescrolloff = 14
 vim.opt.cursorline = false
-require('custom.neovide')
+require "custom.neovide"
 -- vim.g.transparent_enabled = true
 -- Auto resize panes when resizing nvim window
 -- autocmd("VimResized", {
@@ -17,16 +13,14 @@ require('custom.neovide')
 --   command = "tabdo wincmd =",
 -- })
 autocmd("InsertLeave", {
-  group = myAutoGroup,
-  callback = require("custom.plugins.im-select").insertLeave,
+  callback = require("custom.plugins.configs.im-select").insertLeave,
 })
+
 autocmd("InsertEnter", {
-  group = myAutoGroup,
-  callback = require("custom.plugins.im-select").insertEnter,
+  callback = require("custom.plugins.configs.im-select").insertEnter,
 })
+
 autocmd("BufWritePre", {
-  group = myAutoGroup,
-  -- pattern = { "*.lua", "*.py", "*.sh" },
   callback = function()
     vim.lsp.buf.format()
   end,

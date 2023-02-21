@@ -9,8 +9,6 @@ return {
       require "custom.plugins.configs.dashboard"
     end,
   },
-  -- 透明插件
-  ["xiyaowong/nvim-transparent"] = {},
 
   -- markdown-preview 插件
   ["iamcco/markdown-preview.nvim"] = {
