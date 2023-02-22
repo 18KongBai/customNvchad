@@ -73,6 +73,11 @@ return {
 
   -- overrde plugin configs
   ["nvim-treesitter/nvim-treesitter"] = {
+    config = function()
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.o.foldlevelstart = 99
+    end,
     override_options = overrides.treesitter,
   },
 
