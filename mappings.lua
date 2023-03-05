@@ -1,6 +1,9 @@
 -- lua/custom/mappings
 local M = {}
 
+local function termcodes(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
 -- add this table only when you want to disable default keys
 -- M.disabled = {
 --   n = {
@@ -20,12 +23,16 @@ M.general = {
     -- navigate within insert mode
     ["<C-h>"] = { "<Left>", "i模式下左移" },
     ["<C-l>"] = { "<Right>", "i模式下右移" },
+    ["<C-j>"] = { "<Down>", "i模式下下移" },
+    ["<C-k>"] = { "<Up>", "i模式下上移" },
   },
 
   v = {
     ["<C-j>"] = { "5j", "向下移动5行" },
     ["<C-k>"] = { "5k", "向上移动5行" },
   },
+
+  t = { ["<Esc>"] = { termcodes "<C-\\><C-N>", "退出终端输入模式" } },
 
   n = {
     -- ["s"] = { "", "取消s默认功能" },
@@ -103,6 +110,8 @@ M.nvimtree = {
   n = {
     -- toggle
     ["<A-m>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
+    ["<C-n>"] = { "" },
+    ["<leader>e"] = { "" },
   },
 }
 
