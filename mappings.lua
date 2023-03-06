@@ -32,9 +32,11 @@ M.general = {
     ["<C-k>"] = { "5k", "向上移动5行" },
   },
 
-  t = { ["<Esc>"] = { termcodes "<C-\\><C-N>", "退出终端输入模式" } },
+  t = { ["<F1>"] = { termcodes "<C-\\><C-N>", "退出终端输入模式" } },
 
   n = {
+    ["<leader>b"] = { "<cmd> enew <CR>", "创建新页面" },
+    ["<C-s>"] = { "", "" },
     -- ["s"] = { "", "取消s默认功能" },
     -- 分屏操作
     ["sv"] = { ":vsp<CR>", "水平分屏" },
@@ -95,6 +97,9 @@ M.tabufline = {
       end,
       "上一个标签页",
     },
+    -- 取消nvchad默认按键功能
+    ["<S-Tab>"] = { "", "" },
+    ["<leader>x"] = { "", "" },
 
     -- close buffer + hide terminal buffer
     ["<C-w>"] = {
