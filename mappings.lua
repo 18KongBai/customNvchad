@@ -272,4 +272,43 @@ M.markdown = {
   },
 }
 
+M.undotree = {
+  n = {
+    ["<F4>"] = {
+      "<cmd>UndotreeToggle<CR>",
+      "打开撤销记录",
+    },
+  },
+}
+
+M.todo = {
+  n = {
+    ["<leader>td"] = {
+      "<cmd>TodoTelescope<CR>",
+      "打开todo列表",
+    },
+    ["<leader>["] = {
+      function()
+        require("todo-comments").jump_prev()
+      end,
+      "上一个todo记录",
+    },
+    ["<leader>]"] = {
+      function()
+        require("todo-comments").jump_next()
+      end,
+      "下一个todo记录",
+    },
+  },
+}
+
+M.leap = {
+  n = {
+    ["f"] = {
+      "<Plug>(leap-forward)",
+      "开启leap搜索启动键",
+    },
+  },
+}
+
 return M

@@ -10,6 +10,30 @@ return {
     end,
   },
 
+  -- 自动调整焦点分割/窗口的大小
+  ["beauwilliams/focus.nvim"] = {
+    config = function()
+      require "custom.plugins.configs.focus"
+    end,
+  },
+
+  -- todo
+  ["folke/todo-comments.nvim"] = {
+    config = function()
+      require "custom.plugins.configs.todo"
+    end,
+    setup = function()
+      require("core.utils").load_mappings "todo"
+    end,
+  },
+
+  -- 撤销记录
+  ["mbbill/undotree"] = {
+    setup = function()
+      require("core.utils").load_mappings "undotree"
+    end,
+  },
+
   -- markdown-preview 插件
   ["iamcco/markdown-preview.nvim"] = {
     setup = function()
@@ -52,6 +76,9 @@ return {
   ["ggandor/leap.nvim"] = {
     config = function()
       require "custom.plugins.configs.leap"
+    end,
+    setup = function()
+      require("core.utils").load_mappings "leap"
     end,
   },
   -- jsx 注释
