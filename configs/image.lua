@@ -1,10 +1,4 @@
-local present, image = pcall(require, "image")
-
-if not present then
-  return
-end
-
-image.setup {
+local options = {
   render = {
     min_padding = 5,
     show_label = true,
@@ -16,3 +10,5 @@ image.setup {
     update_on_nvim_resize = true,
   },
 }
+
+return options

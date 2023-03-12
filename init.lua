@@ -9,6 +9,11 @@ vim.opt.scrolloff = 14
 vim.opt.sidescrolloff = 14
 vim.opt.cursorline = false
 
+-- 开启代码折叠
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevelstart = 99
+
 -- neovide终端配置
 require "custom.neovide"
 -- vim.g.transparent_enabled = true
@@ -18,11 +23,11 @@ require "custom.neovide"
 --   command = "tabdo wincmd =",
 -- })
 autocmd("InsertLeave", {
-  callback = require("custom.plugins.configs.im-select").insertLeave,
+  callback = require("custom.configs.im-select").insertLeave,
 })
 
 autocmd("InsertEnter", {
-  callback = require("custom.plugins.configs.im-select").insertEnter,
+  callback = require("custom.configs.im-select").insertEnter,
 })
 
 autocmd("BufWritePre", {

@@ -14,17 +14,18 @@
 └── mappings.lua                         // 客制化插件对应键位
 ```
 
-## 使用
+## 使用 v2.0版本
 
 ``` javascript
 1. cd ~/.config
 2. git clone https://github.com/NvChad/NvChad.git
 3. mv Nvchad nvim
-4. cd ~/.config/nvim/lua
-5. git clone https://github.com/18KongBai/customNvchad.git
-6. mv customNvchad custom
-7. nvim
-8. :PackerSync
+4. 切换为v2.0版本
+5. cd ~/.config/nvim/lua
+6. git clone https://github.com/18KongBai/customNvchad.git
+7. mv customNvchad custom
+8. 切换为v2.0版本
+9. nvim
 ```
 
 ## mason安装配套lsp `:Mason`
