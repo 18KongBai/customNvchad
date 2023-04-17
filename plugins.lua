@@ -30,8 +30,7 @@ local plugins = {
       },
       "williamboman/mason-lspconfig.nvim",
     },
-    config = function()
-    end,                     -- Override to setup mason-lspconfig
+    config = function() end, -- Override to setup mason-lspconfig
   },
 
   -- Install a plugin
@@ -41,6 +40,20 @@ local plugins = {
     config = function()
       require("better_escape").setup()
     end,
+  },
+
+  {
+    "jackMort/ChatGPT.nvim",
+    cmd = { "ChatGPT", "ChatGPTRun" },
+    dependencies = {
+      {
+        "MunifTanjim/nui.nvim",
+      },
+    },
+    opts = function()
+      return require "custom.configs.chatgpt"
+    end,
+    config = true,
   },
 
   {
@@ -57,7 +70,7 @@ local plugins = {
   -- 自动调整焦点分割/窗口的大小
   {
     "beauwilliams/focus.nvim",
-    event = "VimEnter",
+    event = "VeryLazy",
     opts = function()
       return require "custom.configs.focus"
     end,
@@ -69,8 +82,9 @@ local plugins = {
   -- todo
   {
     "folke/todo-comments.nvim",
-    event = "VimEnter",
+    cmd = { "TodoTelescope" },
     init = require("core.utils").load_mappings "todo",
+    config = true,
   },
 
   -- 撤销记录
@@ -94,17 +108,18 @@ local plugins = {
   {
     "samodostal/image.nvim",
     event = "VimEnter",
+    dependencies = {
+      -- 默认情况下颜色不打开的原因是打开图像时的显着延迟 使用该插件配套
+      {
+        "m00qek/baleia.nvim",
+      },
+    },
     opts = function()
       return require "custom.configs.image"
     end,
     config = function(_, opts)
       require("image").setup(opts)
     end,
-  },
-
-  -- 默认情况下颜色不打开的原因是打开图像时的显着延迟 使用该插件配套
-  {
-    "m00qek/baleia.nvim",
   },
 
   -- git显示历史提交记录
@@ -121,39 +136,23 @@ local plugins = {
     init = require("core.utils").load_mappings "lazygit",
   },
 
-  -- 项目管理插件
-  {
-    "ahmedkhalf/project.nvim",
-    event = "VimEnter",
-    opts = function()
-      return require "custom.configs.project"
-    end,
-    config = function(_, opts)
-      require("project_nvim").setup(opts)
-    end,
-  },
-
   -- 光标跳转插件
   {
     "ggandor/leap.nvim",
     event = "VimEnter",
+    -- keys = {
+    --   { "f", "<Plug>(leap-forward)", desc = "开启搜索" },
+    -- },
     init = require("core.utils").load_mappings "leap",
     config = function()
-      require("leap").add_default_mappings();
+      require("leap").add_default_mappings()
     end,
   },
 
-  {
-    "ggandor/flit.nvim",
-    key = { "f" },
-    config = true,
-  },
-
-  -- jsx 注释
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    event = "VimEnter",
-  },
+  -- {
+  --   "ggandor/flit.nvim",
+  --   config = true,
+  -- },
 
   -- lspsage 增加lsp功能
   {
@@ -165,6 +164,7 @@ local plugins = {
   -- overrde plugin configs
   {
     "nvim-treesitter/nvim-treesitter",
+    event = "VimEnter",
     opts = overrides.treesitter,
   },
 
@@ -174,13 +174,17 @@ local plugins = {
   },
 
   {
-    "nvim-telescope/telescope.nvim",
-    opts = overrides.telescope,
-  },
-
-  {
     "numToStr/Comment.nvim",
-    opts = overrides.comment,
+    dependencies = {
+      -- jsx 注释
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
+    config = function()
+      require("Comment").setup {
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      }
+    end,
+    -- opts = overrides.comment,
   },
 
   -- {
@@ -195,10 +199,11 @@ local plugins = {
   -- },
 
   -- Uncomment if you want to re-enable which-key
-  -- {
-  --   "folke/which-key.nvim",
-  --   enabled = true,
-  -- },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    enabled = false,
+  },
 }
 
 return plugins

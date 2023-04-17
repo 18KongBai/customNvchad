@@ -14,6 +14,9 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevelstart = 99
 
+-- nvim-tree 支持
+-- vim.g.nvim_tree_respect_buf_cwd = 1
+
 -- neovide终端配置
 require "custom.neovide"
 -- vim.g.transparent_enabled = true

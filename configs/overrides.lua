@@ -1,5 +1,4 @@
 local M = {}
-local isOk, com = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
 
 M.treesitter = {
   -- :TSInstallInfo 命令查看支持的语言
@@ -23,7 +22,7 @@ M.treesitter = {
   indent = {
     enable = true,
     disable = {
-      "python"
+      "python",
     },
   },
 }
@@ -46,11 +45,6 @@ M.mason = {
     "vim-language-server",
     "vue-language-server",
   },
-}
-
-M.comment = {
-  -- 使用ts_context_commentstring 进行注释jsx文件
-  pre_hook = isOk and com.create_pre_hook(),
 }
 
 -- git support in nvimtree
@@ -93,13 +87,6 @@ M.nvimtree = {
       },
     },
   },
-  -- 用于配置project 自动cd 到目录
-  sync_root_with_cwd = true,
-  respect_buf_cwd = true,
-  update_focused_file = {
-    enable = true,
-    update_root = true
-  },
 }
 
 M.blankline = {
@@ -107,7 +94,7 @@ M.blankline = {
 }
 
 M.telescope = {
-  extensions_list = { "themes", "terms", "projects" },
+  extensions_list = { "themes", "terms", "project" },
 }
 
 return M

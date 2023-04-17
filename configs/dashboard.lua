@@ -1,6 +1,6 @@
 local options = {
   theme = "hyper",
-  shortcut_type = "number",  -- shorcut type 'letter' or 'number'
+  shortcut_type = "number", -- shorcut type 'letter' or 'number'
   config = {
     week_header = {
       enable = true,
@@ -27,7 +27,7 @@ local options = {
       },
     },
     shortcut = {
-      { desc = " Projects", group = "Label", action = "Telescope projects", key = "p" },
+      { desc = " Update", group = "@property", action = "Lazy update", key = "u" },
       {
         desc = " Files",
         group = "Label",
@@ -39,12 +39,6 @@ local options = {
         group = "Label",
         action = "edit ~/.config/nvim/lua/custom/mappings.lua",
         key = "m",
-      },
-      {
-        desc = " edit project",
-        group = "Label",
-        action = "edit ~/.local/share/nvim/project_nvim/project_history",
-        key = "e",
       },
     },
     footer = {

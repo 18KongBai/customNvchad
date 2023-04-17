@@ -1,9 +1,6 @@
 -- lua/custom/mappings
 local M = {}
 
-local function termcodes(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
 -- add this table only when you want to disable default keys
 -- M.disabled = {
 --   n = {
@@ -15,27 +12,12 @@ end
 -- n, v, i, t = mode names
 
 M.general = {
-  i = {
-    -- go to  beginning and end
-    ["<C-b>"] = { "<ESC>^i", "i模式下跳到行首" },
-    ["<C-e>"] = { "<End>", "i模式下跳到行尾" },
-
-    -- navigate within insert mode
-    ["<C-h>"] = { "<Left>", "i模式下左移" },
-    ["<C-l>"] = { "<Right>", "i模式下右移" },
-    ["<C-j>"] = { "<Down>", "i模式下下移" },
-    ["<C-k>"] = { "<Up>", "i模式下上移" },
-  },
-
   v = {
     ["<C-j>"] = { "5j", "向下移动5行" },
     ["<C-k>"] = { "5k", "向上移动5行" },
   },
 
-  t = { ["<F1>"] = { termcodes "<C-\\><C-N>", "退出终端输入模式" } },
-
   n = {
-    ["<leader>b"] = { "<cmd> enew <CR>", "创建新页面" },
     ["<C-s>"] = { "", "" },
     ["s"] = { "", "取消s默认功能" },
     -- 分屏操作
@@ -55,16 +37,6 @@ M.general = {
     ["<leader>w"] = { "<cmd> w <CR>", "保存当前页面" },
     ["<leader>wa"] = { "<cmd> wa <CR>", "保存所有页面" },
     ["<leader>q"] = { "<cmd> qa! <CR>", "不保存退出" },
-
-    -- Copy all
-    ["<C-c>"] = { "<cmd> %y+ <CR>", "拷贝当前页面" },
-
-    -- line numbers
-    ["<leader>sn"] = { "<cmd> set nu! <CR>", "是否展示行号数字" },
-    ["<leader>srn"] = { "<cmd> set rnu! <CR>", "是否使用相对行号" },
-
-    -- update nvchad
-    ["<leader>uu"] = { "<cmd> :NvChadUpdate <CR>", "更新配置" },
 
     ["<C-j>"] = { "5j", "向下移动5行" },
     ["<C-k>"] = { "5k", "向上移动5行" },
@@ -98,7 +70,7 @@ M.tabufline = {
       "上一个标签页",
     },
     -- 取消nvchad默认按键功能
-    ["<S-Tab>"] = { "", "" },
+    ["<S-tab>"] = { "", "" },
     ["<leader>x"] = { "", "" },
 
     -- close buffer + hide terminal buffer
@@ -124,15 +96,9 @@ M.telescope = {
   n = {
     -- find
     ["<C-p>"] = { "<cmd> Telescope find_files <CR>", "查找文件" },
+    ["<leader>ff"] = { "", "" },
     ["<C-f>"] = { "<cmd> Telescope live_grep <CR>", "查找关键词" },
-    ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "查询修改缓存" },
     ["<leader>sk"] = { "<cmd> Telescope keymaps <CR>", "展示按键映射" },
-    -- pick a hidden term
-    -- 选择隐藏的终端
-    ["<leader>st"] = { "<cmd> Telescope terms <CR>", "显示隐藏的终端" },
-
-    -- theme switcher
-    ["<leader>th"] = { "<cmd> Telescope themes <CR>", "选择主题" },
   },
 }
 
@@ -146,6 +112,8 @@ M.nvterm = {
       end,
       "切换浮动终端",
     },
+    ["<A-i>"] = { "", "" },
+    ["<A-v>"] = { "", "" },
 
     -- 关闭底部终端
     ["<leader>tb"] = {
@@ -158,6 +126,8 @@ M.nvterm = {
 
   n = {
     -- toggle in normal mode
+    ["<A-i>"] = { "", "" },
+    ["<A-v>"] = { "", "" },
     -- 打开悬浮终端
     ["<leader>ti"] = {
       function()
@@ -182,27 +152,6 @@ M.nvterm = {
         require("nvterm.terminal").new "horizontal"
       end,
       "打开新的底部终端",
-    },
-  },
-}
-
-M.comment = {
-  plugin = true,
-
-  -- toggle comment in both modes
-  n = {
-    ["<leader>/"] = {
-      function()
-        require("Comment.api").toggle.linewise.current()
-      end,
-      "切换注释",
-    },
-  },
-
-  v = {
-    ["<leader>/"] = {
-      "<ESC><cmd>lua require('Comment.api').toggle.blockwise(vim.fn.visualmode())<CR>",
-      "v模式下切换注释",
     },
   },
 }
@@ -281,27 +230,6 @@ M.undotree = {
   },
 }
 
-M.todo = {
-  n = {
-    ["<leader>td"] = {
-      "<cmd>TodoTelescope<CR>",
-      "打开todo列表",
-    },
-    ["<leader>["] = {
-      function()
-        require("todo-comments").jump_prev()
-      end,
-      "上一个todo记录",
-    },
-    ["<leader>]"] = {
-      function()
-        require("todo-comments").jump_next()
-      end,
-      "下一个todo记录",
-    },
-  },
-}
-
 M.leap = {
   n = {
     ["f"] = {
@@ -311,6 +239,24 @@ M.leap = {
     ["F"] = {
       "<Plug>(leap-backward)",
       "leap向上搜索",
+    },
+  },
+}
+
+M.todo = {
+  n = {
+    ["<leader>td"] = {
+      "<cmd>TodoTelescope<CR>",
+      "打开todo列表",
+    },
+  },
+}
+
+M.chatgpt = {
+  n = {
+    ["<leader>cg"] = {
+      "<cmd>ChatGPT<CR>",
+      "打开chatgpt",
     },
   },
 }
