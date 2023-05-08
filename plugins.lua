@@ -29,8 +29,18 @@ local plugins = {
         end,
       },
       "williamboman/mason-lspconfig.nvim",
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim",
+        },
+        opts = function()
+          return require "custom.configs.navbuddy"
+        end,
+        config = true,
+      },
     },
-    config = function() end, -- Override to setup mason-lspconfig
   },
 
   -- Install a plugin
@@ -54,6 +64,36 @@ local plugins = {
       return require "custom.configs.chatgpt"
     end,
     config = true,
+  },
+
+  -- 折叠插件
+  {
+    "kevinhwang91/nvim-ufo",
+    event = "VimEnter",
+    dependencies = {
+      "kevinhwang91/promise-async",
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require "statuscol.builtin"
+          require("statuscol").setup {
+            relculright = true,
+            segments = {
+              { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
+              { text = { "%s" },                  click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+            },
+          }
+        end,
+      },
+    },
+    opts = function()
+      return require "custom.configs.ufo"
+    end,
+    config = function(_, opts)
+      require("ufo").setup(opts)
+    end,
+    init = require("core.utils").load_mappings "ufo",
   },
 
   {
@@ -174,6 +214,22 @@ local plugins = {
   },
 
   {
+    "lewis6991/gitsigns.nvim",
+    dependencies = {
+      {
+        "sindrets/diffview.nvim",
+        opts = function()
+          return require "custom.configs.diffview"
+        end,
+        config = function(_, opts)
+          require("diffview").setup(opts)
+        end,
+        init = require("core.utils").load_mappings "diffview",
+      },
+    },
+  },
+
+  {
     "numToStr/Comment.nvim",
     dependencies = {
       -- jsx 注释
@@ -187,10 +243,10 @@ local plugins = {
     -- opts = overrides.comment,
   },
 
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   opts = overrides.blankline,
-  -- },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = overrides.blankline,
+  },
 
   -- To make a plugin not be loaded
   -- {

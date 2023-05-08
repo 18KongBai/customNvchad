@@ -16,7 +16,6 @@ M.general = {
     ["<C-j>"] = { "5j", "向下移动5行" },
     ["<C-k>"] = { "5k", "向上移动5行" },
   },
-
   n = {
     ["<C-s>"] = { "", "" },
     ["s"] = { "", "取消s默认功能" },
@@ -26,27 +25,22 @@ M.general = {
     ["sc"] = { "<C-w>c", "关闭窗口" },
     ["s,"] = { ":vertical resize -2<CR>", "窗口宽度减少" },
     ["s."] = { ":vertical resize +2<CR>", "窗口宽度增加" },
-
     -- switch between windows
     ["<A-h>"] = { "<C-w>h", "window left" },
     ["<A-l>"] = { "<C-w>l", "window right" },
     ["<A-j>"] = { "<C-w>j", "window down" },
     ["<A-k>"] = { "<C-w>k", "window up" },
-
     -- save
     ["<leader>w"] = { "<cmd> w <CR>", "保存当前页面" },
     ["<leader>wa"] = { "<cmd> wa <CR>", "保存所有页面" },
     ["<leader>q"] = { "<cmd> qa! <CR>", "不保存退出" },
-
     ["<C-j>"] = { "5j", "向下移动5行" },
     ["<C-k>"] = { "5k", "向上移动5行" },
   },
-
   x = {
     ["J"] = { ":move '>+1<CR>gv-gv", "v模式下向下移动代码" },
     ["K"] = { ":move '<-2<CR>gv-gv", "v模式下向上移动代码" },
   },
-
   c = {
     ["<C-j>"] = { "<C-n>", "下一个" },
     ["<C-k>"] = { "<C-p>", "上一个" },
@@ -62,7 +56,6 @@ M.tabufline = {
       end,
       "下一个标签",
     },
-
     ["<C-h>"] = {
       function()
         require("nvchad_ui.tabufline").tabuflinePrev()
@@ -72,7 +65,6 @@ M.tabufline = {
     -- 取消nvchad默认按键功能
     ["<S-tab>"] = { "", "" },
     ["<leader>x"] = { "", "" },
-
     -- close buffer + hide terminal buffer
     ["<C-w>"] = {
       function()
@@ -114,7 +106,6 @@ M.nvterm = {
     },
     ["<A-i>"] = { "", "" },
     ["<A-v>"] = { "", "" },
-
     -- 关闭底部终端
     ["<leader>tb"] = {
       function()
@@ -123,7 +114,6 @@ M.nvterm = {
       "切换底部终端",
     },
   },
-
   n = {
     -- toggle in normal mode
     ["<A-i>"] = { "", "" },
@@ -135,7 +125,6 @@ M.nvterm = {
       end,
       "切换浮动终端",
     },
-
     -- 打开底部终端
     ["<leader>tb"] = {
       function()
@@ -143,7 +132,6 @@ M.nvterm = {
       end,
       "切换底部终端",
     },
-
     -- new
 
     -- 新建一个终端
@@ -257,6 +245,41 @@ M.chatgpt = {
     ["<leader>cg"] = {
       "<cmd>ChatGPT<CR>",
       "打开chatgpt",
+    },
+  },
+}
+
+M.ufo = {
+  n = {
+    ["K"] = {
+      function()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end,
+      "显示折叠内容",
+    },
+    ["zr"] = {
+      function()
+        require("ufo").closeAllFolds()
+      end,
+      "折叠全部",
+    },
+    ["zm"] = {
+      function()
+        require("ufo").openAllFolds()
+      end,
+      "显示全部折叠",
+    },
+  },
+}
+
+M.diffview = {
+  n = {
+    ["<leader>di"] = {
+      "<cmd>DiffviewOpen<CR>",
+      "打开git修改记录",
     },
   },
 }
