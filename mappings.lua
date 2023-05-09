@@ -275,13 +275,4 @@ M.ufo = {
   },
 }
 
-M.diffview = {
-  n = {
-    ["<leader>di"] = {
-      "<cmd>DiffviewOpen<CR>",
-      "打开git修改记录",
-    },
-  },
-}
-
 return M

@@ -214,22 +214,6 @@ local plugins = {
   },
 
   {
-    "lewis6991/gitsigns.nvim",
-    dependencies = {
-      {
-        "sindrets/diffview.nvim",
-        opts = function()
-          return require "custom.configs.diffview"
-        end,
-        config = function(_, opts)
-          require("diffview").setup(opts)
-        end,
-        init = require("core.utils").load_mappings "diffview",
-      },
-    },
-  },
-
-  {
     "numToStr/Comment.nvim",
     dependencies = {
       -- jsx 注释
