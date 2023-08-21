@@ -36,6 +36,12 @@ M.general = {
     ["<leader>q"] = { "<cmd> qa! <CR>", "不保存退出" },
     ["<C-j>"] = { "5j", "向下移动5行" },
     ["<C-k>"] = { "5k", "向上移动5行" },
+    ["<leader>tp"] = {
+      function()
+        require("base46").toggle_transparency()
+      end,
+      "更改透明度",
+    },
   },
   x = {
     ["J"] = { ":move '>+1<CR>gv-gv", "v模式下向下移动代码" },
@@ -52,13 +58,13 @@ M.tabufline = {
     -- cycle through buffers
     ["<C-l>"] = {
       function()
-        require("nvchad_ui.tabufline").tabuflineNext()
+        require("nvchad.tabufline").tabuflineNext()
       end,
       "下一个标签",
     },
     ["<C-h>"] = {
       function()
-        require("nvchad_ui.tabufline").tabuflinePrev()
+        require("nvchad.tabufline").tabuflinePrev()
       end,
       "上一个标签页",
     },
@@ -68,7 +74,7 @@ M.tabufline = {
     -- close buffer + hide terminal buffer
     ["<C-w>"] = {
       function()
-        require("nvchad_ui.tabufline").close_buffer()
+        require("nvchad.tabufline").close_buffer()
       end,
       "关闭当前页面",
     },
@@ -190,7 +196,7 @@ M.lspconfig = {
       "Lspsaga diagnostic_jump_prev",
     },
     ["gf"] = {
-      "<cmd>Lspsaga lsp_finder<CR>",
+      "<cmd>Lspsaga finder<CR>",
       "lspsaga finder",
     },
     ["gp"] = {

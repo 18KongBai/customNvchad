@@ -79,8 +79,8 @@ local plugins = {
           require("statuscol").setup {
             relculright = true,
             segments = {
-              { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
-              { text = { "%s" },                  click = "v:lua.ScSa" },
+              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+              { text = { "%s" }, click = "v:lua.ScSa" },
               { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
             },
           }
@@ -109,13 +109,10 @@ local plugins = {
 
   -- 自动调整焦点分割/窗口的大小
   {
-    "beauwilliams/focus.nvim",
+    "nvim-focus/focus.nvim",
     event = "VeryLazy",
-    opts = function()
-      return require "custom.configs.focus"
-    end,
-    config = function(_, opts)
-      require("focus").setup(opts)
+    config = function()
+      require("focus").setup()
     end,
   },
 
@@ -196,9 +193,15 @@ local plugins = {
 
   -- lspsage 增加lsp功能
   {
-    "glepnir/lspsaga.nvim",
-    event = "VimEnter",
-    config = true,
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    config = function()
+      require("lspsaga").setup {}
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
   },
 
   -- overrde plugin configs
