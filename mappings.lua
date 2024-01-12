@@ -93,60 +93,16 @@ M.nvimtree = {
 M.telescope = {
   n = {
     -- find
-    ["<C-p>"] = { "<cmd> Telescope find_files <CR>", "查找文件" },
-    ["<leader>ff"] = { "", "" },
-    ["<C-f>"] = { "<cmd> Telescope live_grep <CR>", "查找关键词" },
     ["<leader>sk"] = { "<cmd> Telescope keymaps <CR>", "展示按键映射" },
   },
 }
 
-M.nvterm = {
-  t = {
-    -- toggle in terminal mode
-    -- 关闭悬浮终端
-    ["<leader>ti"] = {
-      function()
-        require("nvterm.terminal").toggle "float"
-      end,
-      "切换浮动终端",
-    },
-    ["<A-i>"] = { "", "" },
-    ["<A-v>"] = { "", "" },
-    -- 关闭底部终端
-    ["<leader>tb"] = {
-      function()
-        require("nvterm.terminal").toggle "horizontal"
-      end,
-      "切换底部终端",
-    },
-  },
+M.terminal = {
   n = {
-    -- toggle in normal mode
-    ["<A-i>"] = { "", "" },
-    ["<A-v>"] = { "", "" },
-    -- 打开悬浮终端
-    ["<leader>ti"] = {
-      function()
-        require("nvterm.terminal").toggle "float"
-      end,
-      "切换浮动终端",
-    },
-    -- 打开底部终端
-    ["<leader>tb"] = {
-      function()
-        require("nvterm.terminal").toggle "horizontal"
-      end,
-      "切换底部终端",
-    },
-    -- new
-
-    -- 新建一个终端
-    ["<leader>tnb"] = {
-      function()
-        require("nvterm.terminal").new "horizontal"
-      end,
-      "打开新的底部终端",
-    },
+    -- spawn new terms
+    ["<leader>h"] = { "" },
+    ["<leader>v"] = { "" },
+    ["<A-h>"] = { "<C-w>h", "window left" },
   },
 }
 
@@ -167,62 +123,44 @@ M.blamer = {
   },
 }
 
-M.lspconfig = {
-  n = {
-    ["<leader>rn"] = {
-      function()
-        require("nvchad_ui.renamer").open()
-      end,
-      "lsp rename",
-    },
-    ["<leader>ca"] = {
-      "<cmd>Lspsaga code_action<CR>",
-      "code action",
-    },
-    ["gh"] = {
-      "<cmd>Lspsaga hover_doc<CR>",
-      "hover Doc",
-    },
-    ["ge"] = {
-      "<cmd>Lspsaga show_line_diagnostics<CR>",
-      "Show line diagnostics",
-    },
-    ["gj"] = {
-      "<cmd>Lspsaga diagnostic_jump_next<cr>",
-      "Lspsaga diagnostic_jump_next",
-    },
-    ["gk"] = {
-      "<cmd>Lspsaga diagnostic_jump_prev<cr>",
-      "Lspsaga diagnostic_jump_prev",
-    },
-    ["gf"] = {
-      "<cmd>Lspsaga finder<CR>",
-      "lspsaga finder",
-    },
-    ["gp"] = {
-      "<cmd>Lspsaga peek_definition<cr>",
-      "lspsaga peek_definition",
-    },
-  },
-}
-
-M.markdown = {
-  n = {
-    ["<F5>"] = {
-      "<cmd>MarkdownPreview<CR>",
-      "打开markdown预览",
-    },
-  },
-}
-
-M.undotree = {
-  n = {
-    ["<F4>"] = {
-      "<cmd>UndotreeToggle<CR>",
-      "打开撤销记录",
-    },
-  },
-}
+-- M.lspconfig = {
+--   n = {
+--     ["<leader>rn"] = {
+--       function()
+--         require("nvchad.renamer").open()
+--       end,
+--       "LSP rename",
+--     },
+--     ["<leader>ca"] = {
+--       "<cmd>Lspsaga code_action<CR>",
+--       "code action",
+--     },
+--     ["gh"] = {
+--       "<cmd>Lspsaga hover_doc<CR>",
+--       "hover Doc",
+--     },
+--     ["ge"] = {
+--       "<cmd>Lspsaga show_line_diagnostics<CR>",
+--       "Show line diagnostics",
+--     },
+--     ["gj"] = {
+--       "<cmd>Lspsaga diagnostic_jump_next<cr>",
+--       "Lspsaga diagnostic_jump_next",
+--     },
+--     ["gk"] = {
+--       "<cmd>Lspsaga diagnostic_jump_prev<cr>",
+--       "Lspsaga diagnostic_jump_prev",
+--     },
+--     ["gf"] = {
+--       "<cmd>Lspsaga finder<CR>",
+--       "lspsaga finder",
+--     },
+--     ["gp"] = {
+--       "<cmd>Lspsaga peek_definition<cr>",
+--       "lspsaga peek_definition",
+--     },
+--   },
+-- }
 
 M.leap = {
   n = {
@@ -242,15 +180,6 @@ M.todo = {
     ["<leader>td"] = {
       "<cmd>TodoTelescope<CR>",
       "打开todo列表",
-    },
-  },
-}
-
-M.chatgpt = {
-  n = {
-    ["<leader>cg"] = {
-      "<cmd>ChatGPT<CR>",
-      "打开chatgpt",
     },
   },
 }

@@ -90,23 +90,61 @@ M.nvimtree = {
   },
 }
 
-M.blankline = {
-  filetype_exclude = { "dashboard" },
-  space_char_blankline = " ",
-    char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-        "IndentBlanklineIndent3",
-        "IndentBlanklineIndent4",
-        "IndentBlanklineIndent5",
-        "IndentBlanklineIndent6",
-    },
-    show_current_context = true,
-    show_current_context_start = true,
-}
+-- M.blankline = {
+--   filetype_exclude = { "dashboard" },
+--   space_char_blankline = " ",
+--     char_highlight_list = {
+--         "IndentBlanklineIndent1",
+--         "IndentBlanklineIndent2",
+--         "IndentBlanklineIndent3",
+--         "IndentBlanklineIndent4",
+--         "IndentBlanklineIndent5",
+--         "IndentBlanklineIndent6",
+--     },
+--     show_current_context = true,
+--     show_current_context_start = true,
+-- }
 
 M.telescope = {
   extensions_list = { "themes", "terms", "project" },
+}
+
+local cmp = require "cmp"
+M.cmp = {
+  mapping = {
+    ["<C-j>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif require("luasnip").expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
+    ["<C-k>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif require("luasnip").jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
+  },
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "nvim_lua" },
+    { name = "path" },
+    { name = "codeium" },
+  },
 }
 
 return M

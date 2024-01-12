@@ -7,40 +7,19 @@ local plugins = {
 
   {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
     dependencies = {
       -- format & linting
       {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         config = function()
           require "custom.configs.null-ls"
         end,
       },
-      {
-        "williamboman/mason.nvim",
-        opts = overrides.mason,
-        config = function(_, opts)
-          dofile(vim.g.base46_cache .. "mason")
-          require("mason").setup(opts)
-          vim.api.nvim_create_user_command("MasonInstallAll", function()
-            vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
-          end, {})
-          require "custom.configs.lspconfig" -- Load in lsp config
-        end,
-      },
-      "williamboman/mason-lspconfig.nvim",
-      {
-        "SmiteshP/nvim-navbuddy",
-        dependencies = {
-          "SmiteshP/nvim-navic",
-          "MunifTanjim/nui.nvim",
-        },
-        opts = function()
-          return require "custom.configs.navbuddy"
-        end,
-        config = true,
-      },
     },
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
+    end, -- Override to setup mason-lspconfig
   },
 
   -- Install a plugin
@@ -50,20 +29,6 @@ local plugins = {
     config = function()
       require("better_escape").setup()
     end,
-  },
-
-  {
-    "jackMort/ChatGPT.nvim",
-    cmd = { "ChatGPT", "ChatGPTRun" },
-    dependencies = {
-      {
-        "MunifTanjim/nui.nvim",
-      },
-    },
-    opts = function()
-      return require "custom.configs.chatgpt"
-    end,
-    config = true,
   },
 
   -- 折叠插件
@@ -97,7 +62,7 @@ local plugins = {
   },
 
   {
-    "glepnir/dashboard-nvim",
+    "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function()
       return require "custom.configs.dashboard"
@@ -112,7 +77,32 @@ local plugins = {
     "nvim-focus/focus.nvim",
     event = "VeryLazy",
     config = function()
-      require("focus").setup()
+      require("focus").setup {
+        excluded_filetypes = { "toggleterm" },
+      }
+    end,
+  },
+
+  -- {
+  --   "Exafunction/codeium.nvim",
+  --   event = "InsertEnter",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "hrsh7th/nvim-cmp",
+  --   },
+  --   config = function()
+  --     require("codeium").setup {}
+  --   end,
+  -- },
+
+  {
+    "zbirenbaum/copilot.lua",
+    event = "VeryLazy",
+    opts = function()
+      return require "custom.configs.copilot-options"
+    end,
+    config = function(_, opts)
+      require("copilot").setup(opts)
     end,
   },
 
@@ -124,18 +114,6 @@ local plugins = {
     config = true,
   },
 
-  -- 撤销记录
-  {
-    "mbbill/undotree",
-    cmd = { "UndotreeToggle" },
-    init = require("core.utils").load_mappings "undotree",
-  },
-
-  -- markdown-preview 插件
-  {
-    "iamcco/markdown-preview.nvim",
-    init = require("core.utils").load_mappings "markdown",
-  },
   -- kanagawa颜色主题插件
   {
     "rebelot/kanagawa.nvim",
@@ -186,34 +164,44 @@ local plugins = {
     end,
   },
 
-  -- {
-  --   "ggandor/flit.nvim",
-  --   config = true,
-  -- },
-
   -- lspsage 增加lsp功能
-  {
-    "nvimdev/lspsaga.nvim",
-    event = "LspAttach",
-    config = function()
-      require("lspsaga").setup {}
-    end,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-  },
+  -- {
+  --   "nvimdev/lspsaga.nvim",
+  --   event = "LspAttach",
+  --   config = function()
+  --     require("lspsaga").setup {}
+  --   end,
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter", -- optional
+  --     "nvim-tree/nvim-web-devicons", -- optional
+  --   },
+  -- },
 
   -- overrde plugin configs
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "VimEnter",
     opts = overrides.treesitter,
   },
 
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts = overrides.mason,
+  },
+
+  {
+    "hrsh7th/nvim-cmp",
+    opts = overrides.cmp,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-telescope/telescope-project.nvim" },
+    opts = overrides.telescope,
   },
 
   {
@@ -227,25 +215,6 @@ local plugins = {
         pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
       }
     end,
-    -- opts = overrides.comment,
-  },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = overrides.blankline,
-  },
-
-  -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  -- },
-
-  -- Uncomment if you want to re-enable which-key
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    enabled = false,
   },
 }
 
