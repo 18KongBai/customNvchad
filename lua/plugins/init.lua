@@ -9,24 +9,25 @@ return {
 
   {
     "numToStr/Comment.nvim",
+    event = "BufReadPost",
     dependencies = {
       -- jsx 注释
       "JoosepAlviste/nvim-ts-context-commentstring",
     },
     config = function()
-      require("Comment").setup {
+      local comment = require "Comment"
+      local ft = require "Comment.ft"
+      ft.scss = { "/*%s*/", "/*%s*/" }
+      ft.less = { "/*%s*/", "/*%s*/" }
+
+      -- enable comment
+      comment.setup {
         pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
       }
     end,
   },
 
-  {
-    "rcarriga/nvim-notify",
-    init = function()
-      vim.notify = require "notify"
-    end,
-  },
-
+  -- vscode 顶部的winbar
   {
     "utilyre/barbecue.nvim",
     event = "BufReadPost",
@@ -34,7 +35,7 @@ return {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons", -- optional dependency
     },
-    config = true
+    config = true,
   },
 
   -- Install a plugin
@@ -50,7 +51,7 @@ return {
   -- 折叠插件
   {
     "kevinhwang91/nvim-ufo",
-    event = "VimEnter",
+    event = "BufReadPost",
     dependencies = {
       { "kevinhwang91/promise-async" },
       {
@@ -58,33 +59,20 @@ return {
         opts = function()
           local builtin = require "statuscol.builtin"
           return {
-            setopt = true,
+            relculright = true,
             segments = {
-              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-              { text = { "%s" },             click = "v:lua.ScSa" },
-              {
-                text = { builtin.lnumfunc, " " },
-                condition = { true, builtin.not_empty },
-                click = "v:lua.ScLa",
-              },
+              { text = { "%s" }, click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
+              { text = { " ", builtin.foldfunc, " " }, click = "v:lua.ScFa" },
             },
           }
         end,
+        config = function(_, opts)
+          require("statuscol").setup(opts)
+        end,
       },
     },
-    init = function()
-      vim.o.foldcolumn = "0" -- '0' is not bad
-      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
-      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-    end,
-    opts = function()
-      return require "configs.nvim-ufo"
-    end,
-    config = function(_, opts)
-      require("ufo").setup(opts)
-    end,
+    config = true,
   },
 
   -- 滚动插件
@@ -103,17 +91,6 @@ return {
     },
   },
 
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   event = "VeryLazy",
-  --   opts = function()
-  --     return require "custom.configs.copilot-options"
-  --   end,
-  --   config = function(_, opts)
-  --     require("copilot").setup(opts)
-  --   end,
-  -- },
-
   -- todo
   {
     "folke/todo-comments.nvim",
@@ -122,13 +99,74 @@ return {
     config = true,
   },
 
+  -- symbols-outline
+  {
+    "simrat39/symbols-outline.nvim",
+    cmd = { "SymbolsOutline" },
+    config = true,
+  },
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      {
+        "rcarriga/nvim-notify",
+        init = function()
+          vim.notify = require "notify"
+        end,
+        opts = function()
+          return require "configs.notifyConfig"
+        end,
+        config = function(_, opts)
+          require("notify").setup(opts)
+        end,
+      },
+    },
+    opts = function()
+      return require "configs.noiceConfig"
+    end,
+    config = function(_, opts)
+      require("noice").setup(opts)
+    end,
+  },
+
+  {
+    "stevearc/dressing.nvim",
+    event = "BufReadPost",
+  },
+
+  -- 重命名
+  {
+    "smjonas/inc-rename.nvim",
+    event = "BufReadPost",
+    config = function()
+      require("inc_rename").setup()
+    end,
+  },
+
+  -- lsp增强
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
+    },
+    opts = function()
+      return require "configs.lspsagaConfig"
+    end,
+    config = function(_, opts)
+      require("lspsaga").setup(opts)
+    end,
+  },
+
   -- 代码预览图
   {
     "TobinPalmer/rayso.nvim",
     cmd = { "Rayso" },
-    config = function()
-      require("rayso").setup {}
-    end,
+    config = true,
   },
 
   -- 使用ascii码来查看图片
@@ -142,7 +180,7 @@ return {
       },
     },
     opts = function()
-      return require "configs.image"
+      return require "configs.imageConfig"
     end,
     config = function(_, opts)
       require("image").setup(opts)
@@ -180,29 +218,12 @@ return {
   },
 
   {
-    "Exafunction/codeium.nvim",
-    cmd = "Codeium",
-    build = ":Codeium Auth",
-    opts = {},
+    "Exafunction/codeium.vim",
+    event = "BufEnter",
   },
-
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "InsertEnter",
-  --   opts = function()
-  --     return require "configs.copilot-options"
-  --   end,
-  --   config = function(_, opts)
-  --     require("copilot").setup(opts)
-  --   end,
-  -- },
 
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      "Exafunction/codeium.nvim",
-    },
     opts = function(_, opts)
       local cmp = require "cmp"
       table.insert(opts.sources, 1, {
@@ -210,6 +231,7 @@ return {
         group_index = 1,
         priority = 100,
       })
+      -- opts.sources[#opts.sources + 1] = { name = "codeium", group_index = 2, priority = 1000 }
       opts.mapping["<C-k>"] = cmp.mapping.select_prev_item()
       opts.mapping["<C-j>"] = cmp.mapping.select_next_item()
     end,
@@ -299,18 +321,25 @@ return {
         enable = true,
       },
       ensure_installed = {
-        "json",
         "html",
         "css",
-        "vim",
-        "lua",
         "javascript",
         "typescript",
         "tsx",
+        "vue",
+        "json",
+        "lua",
+        "vim",
+        "bash",
+        "regex",
         "markdown",
         "markdown_inline",
-        "vue",
       },
     },
+  },
+
+  {
+    "folke/which-key.nvim",
+    enabled = false,
   },
 }

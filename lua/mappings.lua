@@ -25,7 +25,6 @@ map("n", "<leader>w", "<cmd> w <CR>", { desc = "保存当前页面" })
 map("n", "<leader>wa", "<cmd> wa <CR>", { desc = "保存所有页面" })
 map("n", "<leader>q", "<cmd> qa! <CR>", { desc = "不保存退出" })
 
-
 map("n", ";", ":", { desc = "CMD enter command mode" })
 
 map("x", "J", ":move '>+1<CR>gv-gv", { desc = "v模式下向下移动代码" })
@@ -40,14 +39,14 @@ map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "Nvimtree Focus window"
 
 -- tabufline
 map("n", "<C-h>", function()
-	require("nvchad.tabufline").next()
-end, { desc = "buffer goto next" })
+  require("nvchad.tabufline").prev()
+end, { desc = "buffer goto prev" })
 
 map("n", "<C-l>", function()
-	require("nvchad.tabufline").prev()
-end, { desc = "buffer goto prev" })
+  require("nvchad.tabufline").next()
+end, { desc = "buffer goto next" })
 map("n", "<C-w>", function()
-	require("nvchad.tabufline").close_buffer()
+  require("nvchad.tabufline").close_buffer()
 end, { desc = "Buffer Close" })
 
 -- leap
@@ -58,12 +57,12 @@ map("n", "F", "<Plug>(leap-backward)", { desc = "leap向上搜索" })
 map("n", "<leader>td", "<cmd>TodoTelescope<CR>", { desc = "打开todo列表" })
 
 -- ufo 折叠
-map('n', 'zR', function()
-	require("ufo").closeAllFolds()
+map("n", "zR", function()
+  require("ufo").closeAllFolds()
 end, { desc = "折叠全部" })
 
-map('n', 'zM', function()
-	require("ufo").openAllFolds()
+map("n", "zM", function()
+  require("ufo").openAllFolds()
 end, { desc = "显示全部折叠" })
 
 -- telescope
@@ -76,20 +75,29 @@ map({ "n", "x" }, "P", "<Plug>(YankyPutAfter)<Plug>(YankyPreviousEntry)")
 map("n", "<c-p>", "<Plug>(YankyPreviousEntry)", { desc = "粘贴后上一个拷贝" })
 map("n", "<c-n>", "<Plug>(YankyNextEntry)", { desc = "粘贴后下一个拷贝" })
 
+-- symbols-outline.nvim
+map("n", "<leader>sy", "<cmd>SymbolsOutline<CR>", { desc = "Toggle symbols outline" })
 
---codeium
--- map("i", "<Tab>", function()
---   return vim.fn["codeium#Accept"]()
--- end, { expr = true })
--- map("i", "<C-j>", function()
---   return vim.fn["codeium#CycleCompletions"](1)
--- end, { expr = true })
--- map("i", "<C-k>", function()
---   return vim.fn["codeium#CycleCompletions"](-1)
--- end, { expr = true })
--- map("i", "<C-x>", function()
---   return vim.fn["codeium#Clear"]()
--- end, { expr = true })
+-- 重命名
+map("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand "<cword>"
+end, { expr = true })
 
+-- lspsaga
+map("n", "gp", "<cmd>Lspsaga finder<CR>", { desc = "Lsp finder" })
+map("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "lsp hover_doc" })
+map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "diagnostic_jump_prev" })
+map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "diagnostic_jump_next" })
+
+-- codeium
+map("i", "<c-.>", function()
+  return vim.fn["codeium#CycleCompletions"](1)
+end, { expr = true, silent = true })
+map("i", "<c-,>", function()
+  return vim.fn["codeium#CycleCompletions"](-1)
+end, { expr = true, silent = true })
+map("i", "<c-x>", function()
+  return vim.fn["codeium#Clear"]()
+end, { expr = true, silent = true })
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")

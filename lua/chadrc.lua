@@ -4,7 +4,10 @@
 ---@class ChadrcConfig
 local M = {}
 M.ui = {
-  theme = "nord",
+  theme = "kanagawa",
+  lsp = {
+    signature = false,
+  },
   hl_override = {
     NvDashAscii = {
       fg = "blue",
@@ -16,7 +19,7 @@ M.ui = {
       bg = "none",
     },
   },
-  transparency = false,
+  transparency = true,
 
   nvdash = {
     load_on_startup = true,
