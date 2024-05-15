@@ -9,6 +9,9 @@ M.ui = {
     signature = false,
   },
   hl_override = {
+    FoldColumn = {
+      bg = "none",
+    },
     NvDashAscii = {
       fg = "blue",
       bg = "none",
