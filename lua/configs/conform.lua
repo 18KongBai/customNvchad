@@ -5,17 +5,19 @@ local options = {
     css = { "prettier", "stylelint" },
     html = { "prettier" },
     javascript = { "prettierd", "prettier", "eslint_d" },
-    typescript = { "prettierd", "prettier", "eslint_d" },
     javascriptreact = { "prettierd", "prettier", "eslint_d" },
+    typescript = { "prettierd", "prettier", "eslint_d" },
     typescriptreact = { "prettierd", "prettier", "eslint_d" },
-    vue = { { "prettierd", "prettier", "eslint_d" } },
+    vue = { "prettierd", "prettier", "eslint_d" },
     json = { "fixjson" },
   },
 
   --[[ format_on_save = {
-    timeout_ms = 600,
+    -- I recommend these options. See :help conform.format for details.
     lsp_fallback = true,
+    timeout_ms = 500,
   }, ]]
+
   format_after_save = {
     lsp_fallback = true,
   },
