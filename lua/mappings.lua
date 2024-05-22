@@ -15,11 +15,11 @@ map("n", "<A-j>", "<C-w>j", { desc = "switch window down" })
 map("n", "<A-k>", "<C-w>k", { desc = "switch window up" })
 
 -- 分屏操作
-map("n", "sv", ":vsp<CR>", { desc = "水平分屏" })
-map("n", "sh", ":sp<CR>", { desc = "垂直分屏" })
+map("n", "sv", "<cmd>vsp<CR>", { desc = "水平分屏" })
+map("n", "sh", "<cmd>sp<CR>", { desc = "垂直分屏" })
 map("n", "sc", "<C-w>c", { desc = "关闭窗口" })
-map("n", "s,", ":vertical resize -2<CR>", { desc = "窗口宽度减少" })
-map("n", "s.", ":vertical resize +2<CR>", { desc = "窗口宽度增加" })
+map("n", "s,", "<cmd>vertical resize -2<CR>", { desc = "窗口宽度减少" })
+map("n", "s.", "<cmd>vertical resize +2<CR>", { desc = "窗口宽度增加" })
 
 map("n", "<leader>w", "<cmd> w <CR>", { desc = "保存当前页面" })
 map("n", "<leader>wa", "<cmd> wa <CR>", { desc = "保存所有页面" })
