@@ -25,7 +25,7 @@ local options = {
 
 require("conform").setup(options)
 
---[[ require("conform").formatters.prettier = {
+require("conform").formatters.prettier = {
   prepend_args = function(self, ctx)
     -- 获取当前缓冲区的文件类型
     local filetype = vim.bo.filetype
@@ -34,4 +34,4 @@ require("conform").setup(options)
       return { "--use-tabs" }
     end
   end,
-} ]]
+}

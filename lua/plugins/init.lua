@@ -231,9 +231,27 @@ return {
         group_index = 1,
         priority = 100,
       })
-      -- opts.sources[#opts.sources + 1] = { name = "codeium", group_index = 2, priority = 1000 }
-      opts.mapping["<C-k>"] = cmp.mapping.select_prev_item()
-      opts.mapping["<C-j>"] = cmp.mapping.select_next_item()
+
+      local mymappings = {
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<esc>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.abort()
+          else
+            fallback()
+          end
+        end, { "i", "c" }),
+        ["jk"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.abort()
+          else
+            fallback()
+          end
+        end, { "i", "c" }),
+      }
+
+      opts.mapping = vim.tbl_deep_extend("force", opts.mapping, mymappings)
     end,
   },
 
