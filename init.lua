@@ -1,5 +1,6 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 vim.g.encoding = "UTF-8"
 vim.opt.fileencoding = "utf-8"

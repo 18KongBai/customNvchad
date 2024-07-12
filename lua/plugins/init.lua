@@ -42,9 +42,47 @@ return {
   -- 在插入模式下输入时不会有延迟地转义
   {
     "max397574/better-escape.nvim",
+    version = "v1.0.0",
     event = "InsertEnter",
     config = function()
       require("better_escape").setup()
+    end,
+  },
+
+  -- 使用 ripgrep 在当前缓冲区中搜索并替换
+  {
+    "chrisgrieser/nvim-rip-substitute",
+    cmd = "RipSubstitute",
+    opts = {
+      popupWin = {
+        title = " 替换",
+        border = "single",
+        matchCountHlGroup = "Keyword",
+        noMatchHlGroup = "ErrorMsg",
+        hideSearchReplaceLabels = false,
+        position = "bottom", -- "top"|"bottom"
+      },
+      keymaps = {
+        -- normal & visual mode
+        confirm = "<CR>",
+        abort = "<esc>",
+        prevSubst = "<Up>",
+        nextSubst = "<Down>",
+        openAtRegex101 = "R",
+        insertModeConfirm = "<C-CR>", -- (except this one, obviously)
+      },
+    },
+    config = function(_, opts)
+      require("rip-substitute").setup(opts)
+    end,
+  },
+
+  -- 全局搜索替换
+  {
+    "MagicDuck/grug-far.nvim",
+    cmd = { "GrugFar" },
+    config = function()
+      require("grug-far").setup {}
     end,
   },
 
@@ -132,20 +170,6 @@ return {
     end,
   },
 
-  {
-    "stevearc/dressing.nvim",
-    event = "BufReadPost",
-  },
-
-  -- 重命名
-  {
-    "smjonas/inc-rename.nvim",
-    event = "BufReadPost",
-    config = function()
-      require("inc_rename").setup()
-    end,
-  },
-
   -- lsp增强
   {
     "nvimdev/lspsaga.nvim",
@@ -217,15 +241,35 @@ return {
     end,
   },
 
+  -- codeium 代码提示
   {
     "Exafunction/codeium.vim",
     event = "BufEnter",
+    config = function()
+      vim.keymap.set("i", "<c-;>", function()
+        return vim.fn["codeium#CycleCompletions"](1)
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", "<c-,>", function()
+        return vim.fn["codeium#CycleCompletions"](-1)
+      end, { expr = true, silent = true })
+      vim.keymap.set("i", "<c-x>", function()
+        return vim.fn["codeium#Clear"]()
+      end, { expr = true, silent = true })
+    end,
   },
 
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require "cmp"
+      cmp.event:on("menu_opened", function()
+        vim.g.codeium_manual = true
+        vim.fn["codeium#Clear"]()
+      end)
+      cmp.event:on("menu_closed", function()
+        vim.g.codeium_manual = false
+        vim.fn["codeium#Complete"]()
+      end)
       table.insert(opts.sources, 1, {
         name = "codeium",
         group_index = 1,
@@ -242,16 +286,21 @@ return {
             fallback()
           end
         end, { "i", "c" }),
-        ["jk"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.abort()
-          else
-            fallback()
-          end
-        end, { "i", "c" }),
       }
 
       opts.mapping = vim.tbl_deep_extend("force", opts.mapping, mymappings)
+    end,
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    opts = function()
+      -- 对于react中需要加入html代码片段
+      -- 对于vue需要支持js,ts,html,css
+      local luasnip = require "luasnip"
+      luasnip.filetype_extend("javascriptreact", { "html" })
+      luasnip.filetype_extend("typescriptreact", { "html" })
+      luasnip.filetype_extend("vue", { "javascript", "typescript", "html", "css" })
     end,
   },
 

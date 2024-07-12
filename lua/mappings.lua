@@ -78,26 +78,15 @@ map("n", "<c-n>", "<Plug>(YankyNextEntry)", { desc = "粘贴后下一个拷贝" 
 -- symbols-outline.nvim
 map("n", "<leader>sy", "<cmd>SymbolsOutline<CR>", { desc = "Toggle symbols outline" })
 
--- 重命名
-map("n", "<leader>rn", function()
-  return ":IncRename " .. vim.fn.expand "<cword>"
-end, { expr = true })
-
 -- lspsaga
 map("n", "gp", "<cmd>Lspsaga finder<CR>", { desc = "Lsp finder" })
 map("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "lsp hover_doc" })
 map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "diagnostic_jump_prev" })
 map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "diagnostic_jump_next" })
 
--- codeium
-map("i", "<c-.>", function()
-  return vim.fn["codeium#CycleCompletions"](1)
-end, { expr = true, silent = true })
-map("i", "<c-,>", function()
-  return vim.fn["codeium#CycleCompletions"](-1)
-end, { expr = true, silent = true })
-map("i", "<c-x>", function()
-  return vim.fn["codeium#Clear"]()
-end, { expr = true, silent = true })
+-- 重命名
+map({ "n", "x" }, "<leader>rn", function()
+  require("rip-substitute").sub()
+end, { desc = "当前替换" })
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map("n", "<leader>rl", "<cmd>GrugFar<CR>", { desc = "全局替换" })
