@@ -4,16 +4,15 @@ local options = {
     less = { "prettier", "stylelint" },
     css = { "prettier", "stylelint" },
     html = { "prettier" },
-    javascript = { "prettierd", "prettier", "eslint_d" },
-    javascriptreact = { "prettierd", "prettier", "eslint_d" },
-    typescript = { "prettierd", "prettier", "eslint_d" },
-    typescriptreact = { "prettierd", "prettier", "eslint_d" },
+    javascript = { "prettier", "eslint_d" },
+    javascriptreact = { "prettier", "eslint_d" },
+    typescript = { "prettierd", "prettier", "eslint_d", stop_after_first = true },
+    typescriptreact = { "prettierd", "prettier", "eslint_d", stop_after_first = true },
     vue = { "prettierd", "prettier", "eslint_d" },
     json = { "fixjson" },
   },
 
   --[[ format_on_save = {
-    -- I recommend these options. See :help conform.format for details.
     lsp_fallback = true,
     timeout_ms = 500,
   }, ]]

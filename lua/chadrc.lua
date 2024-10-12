@@ -4,7 +4,7 @@
 ---@class ChadrcConfig
 local M = {}
 M.ui = {
-  theme = "kanagawa",
+  theme = "catppuccin",
   lsp = {
     signature = false,
   },
@@ -24,7 +24,7 @@ M.ui = {
   },
   transparency = true,
 
-  nvdash = {
+  --[[ nvdash = {
     load_on_startup = true,
     buttons = {
       { "  Find project", "Spc f p", "Telescope projects" },
@@ -34,7 +34,7 @@ M.ui = {
       { "  Themes", "Spc t h", "Telescope themes" },
       { "  Mappings", "Spc c h", "NvCheatsheet" },
     },
-  },
+  }, ]]
 }
 
 return M
