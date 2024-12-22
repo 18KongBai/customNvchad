@@ -90,3 +90,16 @@ map({ "n", "x" }, "<leader>rn", function()
 end, { desc = "当前替换" })
 
 map("n", "<leader>rl", "<cmd>GrugFar<CR>", { desc = "全局替换" })
+
+-- Keyboard users
+map("n", "<C-t>", function()
+  require("menu").open "default"
+end, {})
+
+-- mouse users + nvimtree users!
+map("n", "<RightMouse>", function()
+  vim.cmd.exec '"normal! \\<RightMouse>"'
+
+  local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+  require("menu").open(options, { mouse = true })
+end, {})

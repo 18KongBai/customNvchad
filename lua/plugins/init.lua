@@ -123,10 +123,18 @@ return {
   -- 复制功能
   {
     "gbprod/yanky.nvim",
-    opts = {
-      highlight = { timer = 250 },
-      ring = { storage = "shada" },
+    event = "VeryLazy",
+    dependencies = {
+      { "kkharji/sqlite.lua" },
     },
+    opts = {
+      ring = { storage = "sqlite" },
+    },
+    config = true,
+    -- opts = {
+    --   highlight = { timer = 250 },
+    --   ring = { storage = "shada" },
+    -- },
   },
 
   -- todo
@@ -316,18 +324,21 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      "ahmedkhalf/project.nvim",
-      init = function()
-        -- nvim-tree 支持
-        vim.g.nvim_tree_respect_buf_cwd = 1
-      end,
-      opts = {
-        detection_methods = { "pattern" },
-        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".sln" },
+      {
+        "ahmedkhalf/project.nvim",
+        event = "VimEnter",
+        init = function()
+          -- nvim-tree 支持
+          vim.g.nvim_tree_respect_buf_cwd = 1
+        end,
+        opts = {
+          detection_methods = { "pattern" },
+          patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".sln" },
+        },
+        config = function(_, opts)
+          require("project_nvim").setup(opts)
+        end,
       },
-      config = function(_, opts)
-        require("project_nvim").setup(opts)
-      end,
     },
     opts = function(_, opts)
       local extensions = { "yank_history", "projects" }
