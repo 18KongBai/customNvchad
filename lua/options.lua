@@ -9,6 +9,8 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 -- 折叠
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
 
 -- local homePath = vim.fn.expand "$HOME"
 -- local snipmate_snippets_path = homePath .. "/.vscode/extensions/bang.antd-snippets-1.2.0/snippets"
