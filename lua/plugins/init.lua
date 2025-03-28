@@ -252,14 +252,16 @@ return {
     config = true,
   },
 
-  -- 使用ascii码来查看图片
+  -- 在Neovim中显示图片
   {
-    "samodostal/image.nvim",
+    "3rd/image.nvim",
+    version = false, -- 使用最新版本
     event = "BufReadPost",
     dependencies = {
-      -- 默认情况下颜色不打开的原因是打开图像时的显着延迟 使用该插件配套
+      "nvim-lua/plenary.nvim",
       {
-        "m00qek/baleia.nvim",
+        "nvim-neotest/nvim-nio",
+        version = false,
       },
     },
     opts = function()
