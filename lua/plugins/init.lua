@@ -80,12 +80,15 @@ return {
   -- vscode 顶部的winbar
   {
     "utilyre/barbecue.nvim",
-    event = "BufReadPost",
+    name = "barbecue",
+    version = "*",
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons", -- optional dependency
     },
-    config = true,
+    opts = {
+      -- configurations go here
+    },
   },
 
   -- Install a plugin
