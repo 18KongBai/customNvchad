@@ -4,11 +4,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 vim.g.encoding = "UTF-8"
-vim.opt.fileencoding = "utf-8"
--- jkhl 移动时光标周围保留8行
-vim.opt.scrolloff = 14
-vim.opt.sidescrolloff = 14
-vim.opt.cursorline = false
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -39,7 +34,6 @@ dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
-require "nvchad.autocmds"
 require "autocmds"
 
 vim.schedule(function()

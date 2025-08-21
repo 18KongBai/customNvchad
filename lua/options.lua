@@ -12,7 +12,8 @@ vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 -- views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
 
--- local homePath = vim.fn.expand "$HOME"
--- local snipmate_snippets_path = homePath .. "/.vscode/extensions/bang.antd-snippets-1.2.0/snippets"
--- -- vim.notify(snipmate_snippets_path)
--- vim.g.snipmate_snippets_path = snipmate_snippets_path
+vim.opt.fileencoding = "utf-8"
+-- jkhl 移动时光标周围保留8行
+vim.opt.scrolloff = 14
+vim.opt.sidescrolloff = 14
+vim.opt.cursorline = false

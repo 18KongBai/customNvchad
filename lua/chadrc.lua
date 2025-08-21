@@ -2,6 +2,7 @@
 -- https://github.com/NvChad/NvChad/blob/v2.5/lua/nvconfig.lua
 
 ---@class ChadrcConfig
+
 local M = {
   base46 = {
     theme = "catppuccin",
@@ -95,6 +96,7 @@ local M = {
       "     Powered By  eovim    ",
       "                            ",
     },
+    -- buttons = require "nvdash",
 
     buttons = {
       { txt = "  Find project", keys = "Spc f p", cmd = "Telescope projects" },
