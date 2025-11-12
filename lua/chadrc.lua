@@ -79,9 +79,7 @@ local M = {
   },
 
   mason = { pkgs = {}, skip = {} },
-
   nvdash = {
-    load_on_startup = true,
     header = {
       "                            ",
       "     ▄▄         ▄ ▄▄▄▄▄▄▄   ",
@@ -96,29 +94,7 @@ local M = {
       "     Powered By  eovim    ",
       "                            ",
     },
-    -- buttons = require "nvdash",
-
-    buttons = {
-      { txt = "  Find project", keys = "Spc f p", cmd = "Telescope projects" },
-      { txt = "  Find File", keys = "Spc f f", cmd = "Telescope find_files" },
-      { txt = "  Recent Files", keys = "Spc f o", cmd = "Telescope oldfiles" },
-      { txt = "  Themes", keys = "Spc t h", cmd = "Telescope themes" },
-      { txt = "  Mappings", keys = "Spc c h", cmd = "NvCheatsheet" },
-
-      { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
-
-      {
-        txt = function()
-          local stats = require("lazy").stats()
-          local ms = math.floor(stats.startuptime) .. " ms"
-          return "  Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms
-        end,
-        hl = "NvDashFooter",
-        no_gap = true,
-      },
-
-      { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
-    },
+    buttons = require "nvdash",
   },
 }
 

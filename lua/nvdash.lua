@@ -1,5 +1,3 @@
--- ~/.config/nvim/lua/nvdash.lua ( or any file ! )
-
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
     if vim.bo[args.buf].buflisted then
@@ -34,7 +32,7 @@ end
 local letters = {}
 for i = string.byte "a", string.byte "z" do
   local letter = string.char(i)
-  if not vim.tbl_contains({ "j", "k", "h", "l" }, letter) then
+  if not vim.tbl_contains({ "j", "k", "h", "l", "f" }, letter) then
     table.insert(letters, letter)
   end
 end
@@ -89,7 +87,7 @@ local function set_recent_folders(tb)
       no_gap = true,
       content = "fit",
       group = "recent_files",
-      cmd = "Lazy",
+      cmd = "cd " .. v .. " | Telescope find_files",
     }
 
     table.insert(line, { txt = "  ", hl = "nviminternalError" })
@@ -103,13 +101,13 @@ end
 
 return function()
   local layout = {
-
     {
       multicolumn = true,
       pad = 3,
       content = "fit",
       { txt = "  Update [u]", hl = "changed", keys = "u", cmd = ":Lazy sync <cr>" },
       { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":Telescope find_files <cr>" },
+      { txt = "  Files [p]", hl = "Added", keys = "p", cmd = ":Telescope projects <cr>" },
       { txt = "  Config [c]", hl = "nviminternalError", keys = "c", cmd = ":e ~/.config/nvim/init.lua <cr>" },
       { txt = "󱥚  Themes [t]", keys = "t", cmd = ":Telescope themes <cr>" },
     },
@@ -153,3 +151,4 @@ return function()
 
   return layout
 end
+

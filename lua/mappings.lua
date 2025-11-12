@@ -83,6 +83,7 @@ map("n", "gp", "<cmd>Lspsaga finder<CR>", { desc = "Lsp finder" })
 map("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "lsp hover_doc" })
 map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "diagnostic_jump_prev" })
 map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "diagnostic_jump_next" })
+map("n", "ca", "<cmd>Lspsaga code_action<CR>", { desc = "Lsp code_action" })
 
 -- 重命名
 map({ "n", "x" }, "<leader>rn", function()
@@ -103,3 +104,6 @@ map("n", "<RightMouse>", function()
   local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
   require("menu").open(options, { mouse = true })
 end, {})
+
+-- 回到首页
+map("n", "<leader>n", "<cmd>Nvdash<CR>", { desc = "快速回到首页" })

@@ -10,6 +10,7 @@ return {
       opts.keymap["<C-k>"] = { "select_prev", "fallback" }
     end,
   },
+
   {
     "stevearc/conform.nvim",
     event = "BufReadPost",
@@ -261,9 +262,6 @@ return {
   {
     "ggandor/leap.nvim",
     event = "VimEnter",
-    config = function()
-      require("leap").add_default_mappings()
-    end,
   },
 
   -- codeium 代码提示
