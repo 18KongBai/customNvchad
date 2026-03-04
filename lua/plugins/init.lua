@@ -11,6 +11,8 @@ return {
     end,
   },
 
+  require "configs.opencode",
+
   {
     "stevearc/conform.nvim",
     event = "BufReadPost",
@@ -57,7 +59,6 @@ return {
   -- 在插入模式下输入时不会有延迟地转义
   {
     "max397574/better-escape.nvim",
-    version = "v1.0.0",
     event = "InsertEnter",
     config = function()
       require("better_escape").setup()
@@ -146,10 +147,6 @@ return {
       ring = { storage = "sqlite" },
     },
     config = true,
-    -- opts = {
-    --   highlight = { timer = 250 },
-    --   ring = { storage = "shada" },
-    -- },
   },
 
   -- todo
@@ -160,16 +157,8 @@ return {
     config = true,
   },
 
-  -- symbols-outline
-  {
-    "simrat39/symbols-outline.nvim",
-    cmd = { "SymbolsOutline" },
-    config = true,
-  },
-
   {
     "folke/noice.nvim",
-    version = "4.4.7",
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -260,7 +249,7 @@ return {
 
   -- 光标跳转插件
   {
-    "ggandor/leap.nvim",
+    url = "https://codeberg.org/andyg/leap.nvim",
     event = "VimEnter",
   },
 

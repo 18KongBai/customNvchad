@@ -5,7 +5,7 @@
 
 local M = {
   base46 = {
-    theme = "catppuccin",
+    theme = "chadracula",
     hl_add = {},
     integrations = {},
     theme_toggle = { "onedark", "one_light" },
