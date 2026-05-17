@@ -46,6 +46,7 @@ return {
     "utilyre/barbecue.nvim",
     name = "barbecue",
     version = "*",
+    event = "LspAttach",
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -61,7 +62,13 @@ return {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
     config = function()
-      require("better_escape").setup()
+      require("better_escape").setup {
+        -- 关闭 terminal 模式下的 jk/jj 映射，
+        -- 否则在 lazygit 等终端 UI 中快速按 jk 会被踢出 terminal 模式
+        mappings = {
+          t = { j = { k = false, j = false }, k = { j = false } },
+        },
+      }
     end,
   },
 
@@ -210,7 +217,10 @@ return {
   {
     "3rd/image.nvim",
     version = false, -- 使用最新版本
-    event = "BufReadPost",
+    event = {
+      { event = "BufReadPre", pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" } },
+      { event = "FileType", pattern = { "markdown", "vimwiki", "norg", "typst" } },
+    },
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
@@ -250,57 +260,37 @@ return {
   -- 光标跳转插件
   {
     url = "https://codeberg.org/andyg/leap.nvim",
-    event = "VimEnter",
+    event = "VeryLazy",
   },
 
-  -- codeium 代码提示
+  -- codeium / windsurf 代码提示（Lua 原生新版，原 codeium.nvim）
   {
-    "Exafunction/codeium.vim",
-    event = "BufEnter",
+    "Exafunction/windsurf.nvim",
+    event = "InsertEnter",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      vim.keymap.set("i", "<c-;>", function()
-        return vim.fn["codeium#CycleCompletions"](1)
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<c-,>", function()
-        return vim.fn["codeium#CycleCompletions"](-1)
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<c-x>", function()
-        return vim.fn["codeium#Clear"]()
-      end, { expr = true, silent = true })
-    end,
-  },
-
-  {
-    "hrsh7th/nvim-cmp",
-    opts = function(_, opts)
-      local cmp = require "cmp"
-      cmp.event:on("menu_opened", function()
-        vim.g.codeium_manual = true
-        vim.fn["codeium#Clear"]()
-      end)
-      cmp.event:on("menu_closed", function()
-        vim.g.codeium_manual = false
-        vim.fn["codeium#Complete"]()
-      end)
-      table.insert(opts.sources, 1, {
-        name = "codeium",
-        group_index = 1,
-        priority = 100,
-      })
-
-      local mymappings = {
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<esc>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.abort()
-          else
-            fallback()
-          end
-        end, { "i", "c" }),
+      require("codeium").setup {
+        enable_chat = true,
+        virtual_text = {
+          enabled = true,
+          manual = false,
+          idle_delay = 75,
+          -- 关闭插件自带按键，下面统一用 vim.keymap.set 设置
+          key_bindings = {
+            accept = false,
+            accept_word = false,
+            accept_line = false,
+            clear = false,
+            next = false,
+            prev = false,
+          },
+        },
       }
 
-      opts.mapping = vim.tbl_deep_extend("force", opts.mapping, mymappings)
+      local vt = require "codeium.virtual_text"
+      vim.keymap.set("i", "<c-;>", function() vt.cycle_completions(1) end, { desc = "codeium next" })
+      vim.keymap.set("i", "<c-,>", function() vt.cycle_completions(-1) end, { desc = "codeium prev" })
+      vim.keymap.set("i", "<c-x>", function() vt.clear() end, { desc = "codeium clear" })
     end,
   },
 
@@ -365,11 +355,25 @@ return {
         update_root = true,
       }
       opts.on_attach = require("configs.nvim-tree").on_attach
+      opts.view = vim.tbl_deep_extend("force", opts.view or {}, {
+        preserve_window_proportions = true,
+        width = {
+          min = 35,
+          max = 60,
+          padding = 2,
+        },
+      })
+      opts.renderer = vim.tbl_deep_extend("force", opts.renderer or {}, {
+        group_empty = true,
+        full_name = true,
+        root_folder_label = false,
+        indent_width = 1,
+      })
     end,
   },
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         -- lua stuff
@@ -388,9 +392,16 @@ return {
         "stylelint-lsp",
         "vtsls",
         "markdownlint",
-        "vetur-vls",
         "vim-language-server",
         "vue-language-server",
+        "tailwindcss-language-server",
+      },
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
       },
     },
   },

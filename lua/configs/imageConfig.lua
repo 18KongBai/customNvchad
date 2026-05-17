@@ -53,7 +53,4 @@ return {
   editor_only_render_when_focused = true, -- 仅在编辑器聚焦时渲染
   tmux_show_only_in_active_window = true, -- 仅在活动tmux窗口中显示
   hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
-  
-  -- 自动刷新设置
-  refresh_rate = 5000, -- 5秒自动刷新一次，清除并重新渲染图片
-} 
+}
