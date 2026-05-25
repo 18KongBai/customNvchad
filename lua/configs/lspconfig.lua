@@ -1,7 +1,19 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local servers = { "html", "cssls", "jsonls", "bashls", "ts_ls", "eslint", "tailwindcss" }
+local servers = { "html", "cssls", "jsonls", "bashls", "ts_ls", "eslint", "tailwindcss", "cssmodules_ls" }
 vim.lsp.enable(servers)
+
+-- CSS Modules：支持从 styles.xxx 跳转到 css/scss 中的类定义
+vim.lsp.config("cssmodules_ls", {
+  init_options = {
+    -- 跳转时携带 .module.css/.scss 后缀的写法都识别
+    camelCase = "dashes",
+  },
+  on_attach = function(client)
+    -- 关闭 hover，交给 ts_ls；只保留 definition 用于跳转到 CSS
+    client.server_capabilities.hoverProvider = false
+  end,
+})
 
 -- 过滤指定 LSP 发出的 "can be written as ..." 简写建议诊断
 local function filter_shorthand_diagnostics(server_name)

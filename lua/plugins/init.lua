@@ -267,10 +267,14 @@ return {
   {
     "Exafunction/windsurf.nvim",
     event = "InsertEnter",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
     config = function()
       require("codeium").setup {
         enable_chat = true,
+        -- 本配置使用 blink.cmp，未安装 nvim-cmp，关闭 cmp 源避免 require("cmp") 报错
+        enable_cmp_source = false,
         virtual_text = {
           enabled = true,
           manual = false,
@@ -288,9 +292,15 @@ return {
       }
 
       local vt = require "codeium.virtual_text"
-      vim.keymap.set("i", "<c-;>", function() vt.cycle_completions(1) end, { desc = "codeium next" })
-      vim.keymap.set("i", "<c-,>", function() vt.cycle_completions(-1) end, { desc = "codeium prev" })
-      vim.keymap.set("i", "<c-x>", function() vt.clear() end, { desc = "codeium clear" })
+      vim.keymap.set("i", "<c-;>", function()
+        vt.cycle_completions(1)
+      end, { desc = "codeium next" })
+      vim.keymap.set("i", "<c-,>", function()
+        vt.cycle_completions(-1)
+      end, { desc = "codeium prev" })
+      vim.keymap.set("i", "<c-x>", function()
+        vt.clear()
+      end, { desc = "codeium clear" })
     end,
   },
 
