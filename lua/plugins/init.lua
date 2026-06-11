@@ -11,11 +11,11 @@ return {
     end,
   },
 
-  require "configs.opencode",
-
   {
     "stevearc/conform.nvim",
-    event = "BufReadPost",
+    -- 只在保存前才需要加载，纯浏览文件的会话不必加载
+    event = "BufWritePre",
+    cmd = "ConformInfo",
     config = function()
       require "configs.conform"
     end,
@@ -160,6 +160,8 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    -- 之前只有 cmd 触发，导致 buffer 里的 TODO/FIXME 高亮在执行命令前完全不生效
+    event = "User FilePost",
     cmd = { "TodoTelescope" },
     config = true,
   },
@@ -236,12 +238,20 @@ return {
     end,
   },
 
-  -- git显示历史提交记录
+  -- markdown 编辑器内渲染：标题、表格、代码块、勾选框等直接美化显示，
+  -- 光标所在行 / 插入模式自动还原为源码；:RenderMarkdown toggle 可整体开关
   {
-    "APZelos/blamer.nvim",
-    cmd = { "BlamerToggle" },
-    keys = {
-      { "<leader>bt", "<cmd>BlamerToggle<CR>", desc = "开启历史提交记录" },
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = "markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {
+      -- 未安装 latex parser，显式关闭避免 checkhealth 警告
+      latex = { enabled = false },
+      -- 普通模式下光标行也保持渲染，只在进入插入模式时显示源码
+      anti_conceal = { enabled = false },
+      win_options = {
+        concealcursor = { rendered = "n" },
+      },
     },
   },
 
@@ -292,6 +302,13 @@ return {
       }
 
       local vt = require "codeium.virtual_text"
+      -- 接受补全；只在有建议时才消费按键，避免触发插件内部的 Tab fallback
+      vim.keymap.set("i", "<A-l>", function()
+        if vt.get_current_completion_item() then
+          return vt.accept()
+        end
+        return ""
+      end, { expr = true, silent = true, desc = "codeium accept" })
       vim.keymap.set("i", "<c-;>", function()
         vt.cycle_completions(1)
       end, { desc = "codeium next" })
@@ -349,10 +366,6 @@ return {
         table.insert(opts.extensions_list, 1, extensions[i])
       end
       opts.defaults.mappings = require("configs.telescope").mappings
-      opts.system_open = {
-        -- cmd = isWSL() and "wsl-open" or "open",
-        cmd = "open",
-      }
     end,
   },
 
@@ -384,28 +397,10 @@ return {
 
   {
     "mason-org/mason.nvim",
+    -- 包清单不需要在这里维护：mason.nvim 没有 ensure_installed 选项，
+    -- NvChad 的 :MasonInstallAll 会从 lspconfig 启用的 servers 和 conform 的
+    -- formatters 自动推导；额外的包写到 chadrc.lua 的 mason.pkgs
     opts = {
-      ensure_installed = {
-        -- lua stuff
-        "lua-language-server",
-        "stylua",
-
-        -- web dev stuff
-        "css-lsp",
-        "html-lsp",
-        "typescript-language-server",
-        "emmet-ls",
-        "json-lsp",
-        "eslint_d",
-        "fixjson",
-        "prettierd",
-        "stylelint-lsp",
-        "vtsls",
-        "markdownlint",
-        "vim-language-server",
-        "vue-language-server",
-        "tailwindcss-language-server",
-      },
       ui = {
         icons = {
           package_installed = "✓",
@@ -418,19 +413,21 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    -- autotag 由 nvim-ts-autotag 自身的 plugin/ 自动初始化，
+    -- 旧式的 opts.autotag 配置已不再被读取
     dependencies = { "windwp/nvim-ts-autotag" },
     opts = {
-      autotag = {
-        enable = true,
-      },
       ensure_installed = {
         "html",
         "css",
+        "scss",
         "javascript",
         "typescript",
         "tsx",
         "vue",
         "json",
+        "jsonc",
+        "yaml",
         "lua",
         "vim",
         "bash",

@@ -4,10 +4,15 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
+-- which-key 已禁用，删除 NvChad 注册的残留映射；
+-- 它们还会让 <leader>w 保存时等待 timeoutlen 超时才执行
+pcall(vim.keymap.del, "n", "<leader>wK")
+pcall(vim.keymap.del, "n", "<leader>wk")
+
 -- n mode
 map("n", "<C-j>", "5j", { desc = "向下移动5行" })
 map("n", "<C-k>", "5k", { desc = "向上移动5行" })
-map("n", "s", "", { desc = "取消s默认功能" })
+map("n", "s", "<Nop>", { desc = "取消s默认功能" })
 
 map("n", "<A-h>", "<C-w>h", { desc = "switch window left" })
 map("n", "<A-l>", "<C-w>l", { desc = "switch window right" })
@@ -21,8 +26,9 @@ map("n", "sc", "<C-w>c", { desc = "关闭窗口" })
 map("n", "s,", "<cmd>vertical resize -2<CR>", { desc = "窗口宽度减少" })
 map("n", "s.", "<cmd>vertical resize +2<CR>", { desc = "窗口宽度增加" })
 
+-- 注意：不要再定义 <leader>w 开头的多键映射，否则保存会等待超时
 map("n", "<leader>w", "<cmd> w <CR>", { desc = "保存当前页面" })
-map("n", "<leader>wa", "<cmd> wa <CR>", { desc = "保存所有页面" })
+map("n", "<leader>W", "<cmd> wa <CR>", { desc = "保存所有页面" })
 map("n", "<leader>q", "<cmd> qa! <CR>", { desc = "不保存退出" })
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -53,6 +59,9 @@ end, { desc = "Buffer Close" })
 map("n", "f", "<Plug>(leap-forward)", { desc = "开启leap搜索启动键" })
 map("n", "F", "<Plug>(leap-backward)", { desc = "leap向上搜索" })
 
+-- git：行内显示当前行的提交信息（替代原 blamer.nvim，gitsigns 自带）
+map("n", "<leader>bt", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "开启历史提交记录" })
+
 -- todo
 map("n", "<leader>td", "<cmd>TodoTelescope<CR>", { desc = "打开todo列表" })
 
@@ -71,12 +80,9 @@ map("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "telescope find p
 -- yanky
 map("n", "<leader>p", "<cmd>Telescope yank_history<CR>", { desc = "yank_history" })
 map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-map({ "n", "x" }, "P", "<Plug>(YankyPutAfter)<Plug>(YankyPreviousEntry)")
+map({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
 map("n", "<c-p>", "<Plug>(YankyPreviousEntry)", { desc = "粘贴后上一个拷贝" })
 map("n", "<c-n>", "<Plug>(YankyNextEntry)", { desc = "粘贴后下一个拷贝" })
-
--- symbols-outline.nvim
-map("n", "<leader>sy", "<cmd>SymbolsOutline<CR>", { desc = "Toggle symbols outline" })
 
 -- lspsaga
 map("n", "gp", "<cmd>Lspsaga finder<CR>", { desc = "Lsp finder" })

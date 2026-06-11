@@ -75,7 +75,7 @@ end
 
 local function set_recent_folders(tb)
   local dirs = vim.g.RECENT_PROJECTS or {}
-  dirs = vim.list_slice(dirs, 0, 5)
+  dirs = vim.list_slice(dirs, 1, 5)
 
   for i, v in ipairs(dirs) do
     local path = replace_home_path(v):sub(1, 100)
@@ -151,4 +151,3 @@ return function()
 
   return layout
 end
-

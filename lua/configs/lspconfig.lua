@@ -1,8 +1,5 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local servers = { "html", "cssls", "jsonls", "bashls", "ts_ls", "eslint", "tailwindcss", "cssmodules_ls" }
-vim.lsp.enable(servers)
-
 -- CSS Modules：支持从 styles.xxx 跳转到 css/scss 中的类定义
 vim.lsp.config("cssmodules_ls", {
   init_options = {
@@ -22,7 +19,7 @@ local function filter_shorthand_diagnostics(server_name)
       ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
         if result and result.diagnostics then
           result.diagnostics = vim.tbl_filter(function(d)
-            return not (d.message and d.message:match("can be written as"))
+            return not (d.message and d.message:match "can be written as")
           end, result.diagnostics)
         end
         return vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
@@ -31,8 +28,8 @@ local function filter_shorthand_diagnostics(server_name)
   })
 end
 
-filter_shorthand_diagnostics("tailwindcss")
-filter_shorthand_diagnostics("eslint")
+filter_shorthand_diagnostics "tailwindcss"
+filter_shorthand_diagnostics "eslint"
 
 -- Tailwind CSS v4 兼容配置
 vim.lsp.config("tailwindcss", {
@@ -44,10 +41,15 @@ vim.lsp.config("tailwindcss", {
   },
   -- 显式声明文件类型，默认不包含 JSX/TSX
   filetypes = {
-    "html", "css", "postcss",
-    "javascript", "javascriptreact",
-    "typescript", "typescriptreact",
-    "vue", "svelte",
+    "html",
+    "css",
+    "postcss",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "svelte",
   },
   settings = {
     tailwindCSS = {
@@ -65,3 +67,6 @@ vim.lsp.config("tailwindcss", {
   },
 })
 
+-- 所有 vim.lsp.config 调整完成后再统一启用
+local servers = { "html", "cssls", "jsonls", "bashls", "ts_ls", "eslint", "tailwindcss", "cssmodules_ls" }
+vim.lsp.enable(servers)

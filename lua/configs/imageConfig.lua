@@ -6,21 +6,21 @@
 return {
   backend = "kitty",
   processor = "magick_rock", -- or "magick_cli"
-  
+
   -- 图片显示设置
   max_width = 150, -- 设置更大的尺寸
   max_height = 80,
   max_width_window_percentage = 80,
   max_height_window_percentage = 80,
   render_position = "center", -- 居中显示图片
-  
+
   -- 重要: 防止图片重叠的设置
   window_overlap_clear_enabled = true, -- 启用窗口重叠时清除图像，解决重叠问题
   window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "snacks_notif", "scrollview", "scrollview_sign" },
   clear_in_normal_mode = true, -- 在普通模式下自动清除图片
   auto_clear = true, -- 自动清除旧图片
   clear_on_cursor_display = true, -- 光标移动到图片区域时清除图片
-  
+
   -- 集成设置
   integrations = {
     markdown = {
@@ -48,7 +48,7 @@ return {
       enabled = false,
     },
   },
-  
+
   -- 其他设置
   editor_only_render_when_focused = true, -- 仅在编辑器聚焦时渲染
   tmux_show_only_in_active_window = true, -- 仅在活动tmux窗口中显示

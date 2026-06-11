@@ -5,10 +5,11 @@
 
 local M = {
   base46 = {
-    theme = "chadracula",
+    theme = "kanagawa",
     hl_add = {},
     integrations = {},
-    theme_toggle = { "onedark", "one_light" },
+    -- 切换列表包含当前主题，否则 toggle 一次后回不到 chadracula
+    theme_toggle = { "kanagawa", "one_light" },
     hl_override = {
       FoldColumn = {
         bg = "none",

@@ -4,7 +4,7 @@ local options = {
     override = {
       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
       ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+      -- 补全引擎是 blink.cmp，nvim-cmp 的 override 已移除
     },
     signature = {
       enabled = false,
