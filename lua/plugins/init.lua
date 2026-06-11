@@ -273,51 +273,30 @@ return {
     event = "VeryLazy",
   },
 
-  -- codeium / windsurf 代码提示（Lua 原生新版，原 codeium.nvim）
+  -- GitHub Copilot 代码提示（幽灵文本模式，不依赖 nvim-cmp）
   {
-    "Exafunction/windsurf.nvim",
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
     event = "InsertEnter",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
     config = function()
-      require("codeium").setup {
-        enable_chat = true,
-        -- 本配置使用 blink.cmp，未安装 nvim-cmp，关闭 cmp 源避免 require("cmp") 报错
-        enable_cmp_source = false,
-        virtual_text = {
+      require("copilot").setup {
+        suggestion = {
           enabled = true,
-          manual = false,
-          idle_delay = 75,
-          -- 关闭插件自带按键，下面统一用 vim.keymap.set 设置
-          key_bindings = {
-            accept = false,
+          auto_trigger = true,
+          debounce = 75,
+          -- 按键沿用原 codeium 习惯；无建议时按键自动回退默认行为
+          keymap = {
+            accept = "<A-l>",
             accept_word = false,
             accept_line = false,
-            clear = false,
-            next = false,
-            prev = false,
+            next = "<C-;>",
+            prev = "<C-,>",
+            dismiss = "<C-x>",
           },
         },
+        -- 补全菜单由 blink.cmp 负责，关闭 Copilot 自带面板
+        panel = { enabled = false },
       }
-
-      local vt = require "codeium.virtual_text"
-      -- 接受补全；只在有建议时才消费按键，避免触发插件内部的 Tab fallback
-      vim.keymap.set("i", "<A-l>", function()
-        if vt.get_current_completion_item() then
-          return vt.accept()
-        end
-        return ""
-      end, { expr = true, silent = true, desc = "codeium accept" })
-      vim.keymap.set("i", "<c-;>", function()
-        vt.cycle_completions(1)
-      end, { desc = "codeium next" })
-      vim.keymap.set("i", "<c-,>", function()
-        vt.cycle_completions(-1)
-      end, { desc = "codeium prev" })
-      vim.keymap.set("i", "<c-x>", function()
-        vt.clear()
-      end, { desc = "codeium clear" })
     end,
   },
 
