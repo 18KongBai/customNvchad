@@ -8,7 +8,7 @@ local M = {
     theme = "kanagawa",
     hl_add = {},
     integrations = {},
-    -- 切换列表包含当前主题，否则 toggle 一次后回不到 chadracula
+    -- 切换列表包含当前主题，否则 toggle 一次后回不到 kanagawa
     theme_toggle = { "kanagawa", "one_light" },
     hl_override = {
       FoldColumn = {

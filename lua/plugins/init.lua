@@ -1,7 +1,7 @@
 return {
   { import = "nvchad.blink.lazyspec" },
   {
-    "Saghen/blink.cmp",
+    "saghen/blink.cmp",
     opts = function(_, opts)
       if not opts.keymap then
         opts.keymap = {}
@@ -104,9 +104,7 @@ return {
   {
     "MagicDuck/grug-far.nvim",
     cmd = { "GrugFar" },
-    config = function()
-      require("grug-far").setup {}
-    end,
+    opts = {},
   },
 
   -- 折叠插件
@@ -127,9 +125,6 @@ return {
               { text = { " ", builtin.foldfunc, " " }, click = "v:lua.ScFa" },
             },
           }
-        end,
-        config = function(_, opts)
-          require("statuscol").setup(opts)
         end,
       },
     },
@@ -187,9 +182,6 @@ return {
     opts = function()
       return require "configs.noiceConfig"
     end,
-    config = function(_, opts)
-      require("noice").setup(opts)
-    end,
   },
 
   -- lsp增强
@@ -202,9 +194,6 @@ return {
     },
     opts = function()
       return require "configs.lspsagaConfig"
-    end,
-    config = function(_, opts)
-      require("lspsaga").setup(opts)
     end,
   },
 
@@ -232,9 +221,6 @@ return {
     },
     opts = function()
       return require "configs.imageConfig"
-    end,
-    config = function(_, opts)
-      require("image").setup(opts)
     end,
   },
 
@@ -302,20 +288,20 @@ return {
 
   {
     "L3MON4D3/LuaSnip",
-    opts = function()
+    opts = function(_, opts)
       -- 对于react中需要加入html代码片段
       -- 对于vue需要支持js,ts,html,css
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascriptreact", { "html" })
       luasnip.filetype_extend("typescriptreact", { "html" })
       luasnip.filetype_extend("vue", { "javascript", "typescript", "html", "css" })
+      return opts
     end,
   },
 
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
     end,
   },
@@ -392,9 +378,12 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     -- autotag 由 nvim-ts-autotag 自身的 plugin/ 自动初始化，
     -- 旧式的 opts.autotag 配置已不再被读取
     dependencies = { "windwp/nvim-ts-autotag" },
+    -- NvChad 的 :TSInstallAll 直接读取 spec.opts.ensure_installed（要求 opts 为 table），
+    -- 因此这里保留 table 形式并包含 NvChad 默认的 luadoc / printf / vimdoc
     opts = {
       ensure_installed = {
         "html",
@@ -405,10 +394,12 @@ return {
         "tsx",
         "vue",
         "json",
-        "jsonc",
         "yaml",
         "lua",
+        "luadoc",
+        "printf",
         "vim",
+        "vimdoc",
         "bash",
         "regex",
         "markdown",

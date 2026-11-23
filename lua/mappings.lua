@@ -113,3 +113,9 @@ end, {})
 
 -- 回到首页
 map("n", "<leader>n", "<cmd>Nvdash<CR>", { desc = "快速回到首页" })
+
+-- 撤销树（Neovim 0.12 内置 opt 插件，首次使用时按需加载）
+map("n", "<leader>u", function()
+  vim.cmd.packadd "nvim.undotree"
+  vim.cmd.Undotree()
+end, { desc = "打开撤销树" })

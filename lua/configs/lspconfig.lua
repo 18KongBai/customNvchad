@@ -43,7 +43,6 @@ vim.lsp.config("tailwindcss", {
   filetypes = {
     "html",
     "css",
-    "postcss",
     "javascript",
     "javascriptreact",
     "typescript",

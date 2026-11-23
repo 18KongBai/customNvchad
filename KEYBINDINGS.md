@@ -168,7 +168,7 @@
 | `<leader>ra` | LSP 重命名符号 |
 | `<leader>ds` | 诊断列表（loclist） |
 | `<leader>fm` | 手动格式化（保存时也会自动格式化） |
-| `grr` / `gri` / `gO` | 引用 / 实现 / 文档符号大纲（Neovim 0.11 内置） |
+| `grr` / `gri` / `grt` / `grx` / `gO` | 引用 / 实现 / 类型定义 / CodeLens / 文档符号大纲（Neovim 0.11+ / 0.12 内置） |
 
 lspsaga 浮窗内：`<C-j>`/`<C-k>` 滚动预览，诊断窗中 `o` 执行修复、`q`/`Esc` 退出。
 
@@ -187,7 +187,7 @@ lspsaga 浮窗内：`<C-j>`/`<C-k>` 滚动预览，诊断窗中 `o` 执行修复
 
 插入模式光标移动（NvChad）：`<C-b>` 行首、`<C-e>` 行尾、`<C-h>`/`<C-l>` 左右。
 
-## AI 补全（windsurf/codeium）
+## AI 补全（copilot.lua）
 
 插入模式，虚拟文本建议出现时：
 
@@ -259,6 +259,8 @@ rip-substitute 弹窗内：`<CR>` 确认、`Esc` 取消、`↑`/`↓` 历史、`
 | `Esc` | 清除搜索高亮 |
 | `<C-c>` | 复制整个文件内容 |
 | `<leader>n` | 回到 Nvdash 首页 |
+| `<leader>u` | 打开撤销树（Neovim 0.12 内置 Undotree） |
+| `ZR` | 热重启 Neovim 并恢复会话（Neovim 0.12 内置 `:restart`） |
 | `<leader>td` | TODO/FIXME 注释列表 |
 | `<leader>ch` | NvChad 快捷键速查表 |
 | `<leader>th` | 主题选择器 |

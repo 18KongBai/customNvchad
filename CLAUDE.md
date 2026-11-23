@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 仓库概览
 
-基于 NvChad v2.5 的自定义 Neovim 配置（NvChad 以插件形式引入，非 fork）。主要面向前端开发：TypeScript/JavaScript、React、Vue、Tailwind、CSS Modules。LSP 配置使用 `vim.lsp.enable` / `vim.lsp.config` 新 API，需要 Neovim 0.11+。
+基于 NvChad v2.5 的自定义 Neovim 配置（NvChad 以插件形式引入，非 fork）。主要面向前端开发：TypeScript/JavaScript、React、Vue、Tailwind、CSS Modules。LSP 配置使用 `vim.lsp.enable` / `vim.lsp.config` 新 API，需要 Neovim 0.12+。
 
 ## 常用命令
 
@@ -19,15 +19,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `lua/plugins/init.lua` — **所有**自定义插件 spec 集中在这一个文件。
 - `lua/configs/*.lua` — 较大的插件配置拆成独立模块，在 spec 中通过 `opts = function() return require "configs.xxx" end` 或 `config` 函数引用。
-- `lua/chadrc.lua` — NvChad UI / base46 主题配置（当前主题 chadracula、透明背景）。结构必须与 NvChad 的 `nvconfig.lua` 保持一致。
+- `lua/chadrc.lua` — NvChad UI / base46 主题配置（当前主题 kanagawa、透明背景）。结构必须与 NvChad 的 `nvconfig.lua` 保持一致。
 - `lua/options.lua` / `lua/autocmds.lua` / `lua/mappings.lua` — 均先 `require` NvChad 对应默认模块，再追加自定义内容。自定义按键统一放 `mappings.lua`（leader 为空格）。
 - `lua/nvdash.lua` — dashboard 按钮定义，被 `chadrc.lua` 引用。
 
 ## 关键约定与坑
 
 - **插件默认懒加载**：`configs/lazy.lua` 中 `defaults = { lazy = true }`。新增插件 spec 必须提供 `event` / `cmd` / `keys` / `ft` 触发器，否则插件不会加载。
-- **补全引擎是 blink.cmp，没有安装 nvim-cmp**：任何依赖 `require "cmp"` 的插件配置都会报错（如 windsurf.nvim 必须 `enable_cmp_source = false`）。
-- **覆盖 NvChad 内置插件**（telescope、nvim-tree、mason、treesitter、blink.cmp 等）：在 `lua/plugins/init.lua` 写同名 spec，用 `opts = function(_, opts)` 修改已有 opts，而不是整体替换。
-- **新增 LSP server**：在 `configs/lspconfig.lua` 的 `servers` 列表加入 server 名（由 `vim.lsp.enable` 启用），同时在 `lua/plugins/init.lua` 的 mason `ensure_installed` 加对应包名。
+- **补全引擎是 blink.cmp，没有安装 nvim-cmp**：任何依赖 `require "cmp"` 的插件配置都会报错。
+- **覆盖 NvChad 内置插件**（telescope、nvim-tree、mason、treesitter、blink.cmp 等）：在 `lua/plugins/init.lua` 写同名 spec，用 `opts = function(_, opts)` 修改已有 opts，而不是整体替换（例外：`nvim-treesitter` 因 NvChad `:TSInstallAll` 直接读取 `spec.opts.ensure_installed`，保持 table 形式）。
+- **新增 LSP server**：在 `configs/lspconfig.lua` 的 `servers` 列表加入 server 名（由 `vim.lsp.enable` 启用），NvChad 的 `:MasonInstallAll` 会从 lspconfig 和 conform 配置自动推导需安装的包，额外工具写到 `chadrc.lua` 的 `mason.pkgs`。
 - **格式化**：由 conform.nvim 在保存后异步执行（`format_after_save`），各文件类型的格式化器在 `configs/conform.lua` 的 `formatters_by_ft` 中配置。
 - 代码注释与按键 `desc` 使用中文，是本仓库既有惯例。
