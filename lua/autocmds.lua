@@ -1,5 +1,13 @@
 require "nvchad.autocmds"
 
+-- scss/less 使用块注释风格（兜底无 treesitter parser 的场景，如 less）
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "scss", "less" },
+  callback = function(args)
+    vim.bo[args.buf].commentstring = "/* %s */"
+  end,
+})
+
 -- NvChad 的 LSP on_attach 会注册 buffer 级的 <leader>wa/wr/wl（workspace folder 操作），
 -- 导致代码文件里 <leader>w 保存要等 timeoutlen 超时；这些功能用不到，attach 后删掉
 vim.api.nvim_create_autocmd("LspAttach", {

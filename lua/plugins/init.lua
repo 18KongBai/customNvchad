@@ -22,22 +22,24 @@ return {
   },
 
   {
-    "numToStr/Comment.nvim",
-    event = "BufReadPost",
-    dependencies = {
-      -- jsx 注释
-      "JoosepAlviste/nvim-ts-context-commentstring",
-    },
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
-      local comment = require "Comment"
-      local ft = require "Comment.ft"
-      ft.scss = { "/*%s*/", "/*%s*/" }
-      ft.less = { "/*%s*/", "/*%s*/" }
-
-      -- enable comment
-      comment.setup {
-        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      -- 使用 Neovim 0.12 原生 gc/gcc 注释，禁用 CursorHold 自动计算
+      require("ts_context_commentstring").setup {
+        enable_autocmd = false,
+        languages = {
+          scss = "/* %s */",
+          less = "/* %s */",
+        },
       }
+
+      -- 接入 Neovim 原生注释，支持 JSX/TSX/Vue 上下文注释
+      local get_option = vim.filetype.get_option
+      vim.filetype.get_option = function(filetype, option)
+        return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
+          or get_option(filetype, option)
+      end
     end,
   },
 

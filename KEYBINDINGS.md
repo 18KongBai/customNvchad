@@ -204,9 +204,8 @@ lspsaga 浮窗内：`<C-j>`/`<C-k>` 滚动预览，诊断窗中 `o` 执行修复
 | `<leader>/` | 切换注释（普通/可视模式） |
 | `gcc` | 注释当前行 |
 | `gc{motion}` | 注释范围，如 `gcip` 注释整段；可视模式选中后 `gc` |
-| `gb{motion}` | 块注释（`/* */`） |
 
-JSX/Vue 中会根据光标位置自动用正确的注释风格（ts-context-commentstring）。
+JSX/Vue 中会根据光标位置自动用正确的注释风格（Neovim 原生注释 + ts-context-commentstring）。
 
 ## 折叠（ufo）
 
